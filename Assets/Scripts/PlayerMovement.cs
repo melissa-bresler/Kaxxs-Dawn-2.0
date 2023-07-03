@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private float rotationSpeed = 500f; //720
 
+    private PlayerInput controls;
+    private Transform mainCameraTransform;
+
 
     //Do I have to enable/disable something?
 
@@ -32,6 +35,19 @@ public class PlayerMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
+        controls = new PlayerInput();
+        mainCameraTransform = Camera.main.transform;
+
+    }
+
+    private void OnEnable()
+    {
+        controls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Player.Disable();
     }
 
     // Update is called once per frame
@@ -53,7 +69,29 @@ public class PlayerMovement : MonoBehaviour
         if (!block)
         {
             anim.SetBool("isBlocking", false);
-            movement = new Vector3(_playerMovementInput.x, 0.0f, _playerMovementInput.y);
+
+
+
+            Vector3 cameraForward = mainCameraTransform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+
+            Vector3 cameraRight = mainCameraTransform.right;
+            cameraRight.y = 0f;
+            cameraRight.Normalize();
+
+            movement = (cameraForward * _playerMovementInput.y + cameraRight * _playerMovementInput.x) * _speed;
+
+
+            //Debug.Log("Y input: " + movementInput.y + ". X input: " + movementInput.x + "."); //Inputs are being received
+            //Debug.Log("Movement: " + movement);
+
+
+
+
+
+
+            //movement = new Vector3(_playerMovementInput.x, 0.0f, _playerMovementInput.y);
             _characterController.SimpleMove(movement * _speed);
 
             //Starts walking animation and rotates player to direction of movement.
