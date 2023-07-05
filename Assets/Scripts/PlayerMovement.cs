@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake() //Changed from start
     {
-        Debug.Log("Player Created.");
+        //Debug.Log("Player Created.");
         _characterController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
