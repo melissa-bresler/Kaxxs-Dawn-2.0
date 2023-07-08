@@ -9,19 +9,32 @@ public class EnemyMove : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    private float enemyDistance = 2.0f;
+    [SerializeField] float enemyDistance = 2.0f;
+
+    public EnemyDamage enemyDamage;
+
+    private Animator anim;
+
+    private bool isAttacking;
+
+    public PlayerHealth playerHealth;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
 
         agent = GetComponent<NavMeshAgent>();
+
+        enemyDamage = GetComponent<EnemyDamage>();
+
+        anim = GetComponent<Animator>();
     }
 
     //Call every frame
     void Update()
     {
         MoveEnemy();
+        //enemyDamage.DamageUpdate();
     }
 
     void MoveEnemy()
@@ -33,11 +46,37 @@ public class EnemyMove : MonoBehaviour
 
         if (Vector3.Distance(transform.position, player.position) < enemyDistance)
         {
+            anim.SetInteger("Walk", 0);
             //Debug.Log("Enemy attack.");
             gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
-            gameObject.GetComponent<Animator>().Play("Attack"); //This also needs a delay. Give the player a chance to fight back after an attack.
+            enemyDistance = 2.5f;
+            if (!isAttacking) {
+                Invoke("Attack", 2.1f);
+            }
+        }
+        else
+        {
+            anim.SetInteger("Walk", 1);
+            enemyDistance = 2.0f;
         }
 
         //Debug.Log("Distance: " + Vector3.Distance(transform.position, player.position));
+    }
+
+
+    void Attack()
+    {
+        anim.SetTrigger("isAttacking");
+        Invoke("ResetAttacking", 4.2f);
+    }
+
+    void ResetAttacking()
+    {
+        isAttacking = false;
+    }
+
+    public bool GetIsAttacking()
+    {
+        return isAttacking;
     }
 }

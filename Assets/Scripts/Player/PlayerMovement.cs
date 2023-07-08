@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IControllable
 {
     private CharacterController _characterController;
     private float _speed = 1f;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _runSpeed = 2f;
     private bool run = false;
-    private bool block = false;
+    public bool block = false;
 
     private Animator anim;
     private float rotationSpeed = 500f; //720
@@ -50,8 +50,7 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void update()
     {
         MovePlayer();
     }
@@ -186,5 +185,10 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetTrigger("isKicking");
         }
+    }
+
+    public bool GetIsBlocking()
+    {
+        return block;
     }
 }
