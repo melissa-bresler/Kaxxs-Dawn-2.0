@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour, IControllable
 {
     private Transform player;
 
@@ -31,7 +31,7 @@ public class EnemyMove : MonoBehaviour
     }
 
     //Call every frame
-    void Update()
+    public void update()
     {
         MoveEnemy();
         //enemyDamage.DamageUpdate();
