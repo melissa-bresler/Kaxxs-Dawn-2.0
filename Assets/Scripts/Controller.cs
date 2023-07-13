@@ -11,7 +11,8 @@ public class Controller : MonoBehaviour
     {
         foreach (GameObject obj in objects)
         {
-            obj.GetComponent<IControllable>().update();
+            obj.GetComponent<IControllable>().update(); //Only grabbing one script for each game object
+            //Debug.Log("Update: " + obj.GetComponent<IControllable>());
         }
     }
 }

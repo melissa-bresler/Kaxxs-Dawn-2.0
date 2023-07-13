@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+
+    public PlayerMovement playerMovement;
+
     public int health;
     public int maxHealth = 10;
 
@@ -25,9 +28,10 @@ public class PlayerHealth : MonoBehaviour
             //Add in death animation to animator
             //anim.SetBool("isBlocking", false);
 
-            //Add end screen of whatever else here.
+            //playerMovement.enabled = false;
+            Debug.Log("Player is dead. They can no longer move.");
 
-            //Destroy(gameObject);
+            //Add end screen of whatever else here.
         }
     }
 }
