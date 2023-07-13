@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public EnemyMove enemyMove;
+
     public int currentHealth;
     public int maxHealth = 5;
 
@@ -26,6 +28,10 @@ public class EnemyHealth : MonoBehaviour
             //anim.SetBool("isBlocking", false);
 
             Destroy(gameObject);
+            //gameObject.SetActive(false); //Causes issues
+            //enemyMove.enabled = false; //Doesn't stop enemy from moving
+            Debug.Log("Enemy is dead.");
+
         }
     }
 }

@@ -1855,6 +1855,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1123501708062036, guid: 7f931d4b5c97d194d8726ddf5acdd440, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 1783563462218004, guid: 7f931d4b5c97d194d8726ddf5acdd440, type: 3}
       propertyPath: m_Name
       value: GreenBug
@@ -5618,10 +5622,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Height: 1.6676079
   m_Direction: 1
-  m_Center: {x: -0, y: 0.76233643, z: 0}
+  m_Center: {x: 0.0030555725, y: 0.76233643, z: 0}
 --- !u!114 &1076797085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7009,11 +7013,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417423803}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.53, y: 1.2900001, z: 0.57396626}
-  m_Center: {x: -0.46999976, y: -0.60999995, z: 0.010259407}
+  m_Size: {x: 0.53, y: 1.9366728, z: 0.57396626}
+  m_Center: {x: -0.46999937, y: -0.9333353, z: 0.010259325}
 --- !u!114 &1417423806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7026,10 +7030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd57da68e26984909ac6a68fb741287a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1076797062}
   enemyMove: {fileID: 1483633057}
-  damage: 2
-  playerMovement: {fileID: 1076797065}
 --- !u!1001 &1434948825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7456,6 +7457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7a07a090c9e401aabef7527c2d3bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMove: {fileID: 1483633057}
   currentHealth: 0
   maxHealth: 5
 --- !u!136 &1483633069
@@ -10294,8 +10296,7 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Attack
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2476678828979255991, guid: a13685ec99f5b4277b0e6a64a28b5bf2, type: 3}
+    m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a13685ec99f5b4277b0e6a64a28b5bf2, type: 3}
 --- !u!4 &1942351258 stripped
@@ -10670,7 +10671,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34088
+  m_Name: pb_Mesh25924
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

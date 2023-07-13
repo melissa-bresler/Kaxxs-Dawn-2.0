@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour, IControllable
     private PlayerInput controls;
     private Transform mainCameraTransform;
 
+    private HealthDisplay healthDisplay;
+
 
     //Do I have to enable/disable something?
 
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour, IControllable
 
         controls = new PlayerInput();
         mainCameraTransform = Camera.main.transform;
+
+        healthDisplay = GetComponent<HealthDisplay>();
 
     }
 
@@ -53,6 +57,8 @@ public class PlayerMovement : MonoBehaviour, IControllable
     public void update()
     {
         MovePlayer();
+        healthDisplay.update();
+
     }
 
     void MovePlayer()

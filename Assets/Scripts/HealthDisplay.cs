@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthDisplay : MonoBehaviour//, IControllable
+public class HealthDisplay : MonoBehaviour
 {
 
     public int health;
@@ -14,9 +14,12 @@ public class HealthDisplay : MonoBehaviour//, IControllable
 
     public PlayerHealth playerHealth;
 
+    public void update()
+    {
+        UpdateHearts();
+    }
 
-    //public void update()
-    void Update()
+    void UpdateHearts()
     {
         health = playerHealth.health;
         numOfHearts = playerHealth.maxHealth;

@@ -827,10 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2476678828989223445}
   - component: {fileID: 2476678828982074557}
-  - component: {fileID: 2476678828979255991}
   - component: {fileID: 2476678828979255989}
-  - component: {fileID: 2476678828979255923}
-  - component: {fileID: 2476678828979255917}
   - component: {fileID: 2476678828979255919}
   - component: {fileID: 2476678828979255913}
   - component: {fileID: 2476678828989352417}
@@ -881,21 +878,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2476678828979255991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476678828989451823}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058a2736f2afd564eae55007a87eed87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _random: 0
-  _threshold: 0.5
-  _interval: 10
 --- !u!114 &2476678828979255989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,125 +910,6 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 8564dc45968774e70ad835503fda627e, type: 2}
   delayWeight: 0.3
   isKeepFace: 0
---- !u!114 &2476678828979255923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476678828989451823}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6514ba86f976d724ab63844a6015b2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dynamicRatio: 1
-  stiffnessForce: 0.01
-  stiffnessCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dragForce: 0.4
-  dragCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  springBones:
-  - {fileID: 2476678828979255877}
-  - {fileID: 2476678828979255957}
-  - {fileID: 2476678828979255967}
-  - {fileID: 2476678828979255929}
-  - {fileID: 2476678828979255881}
-  - {fileID: 2476678828979255897}
-  - {fileID: 2476678828979255899}
-  - {fileID: 2476678828979255927}
-  - {fileID: 2476678828979255993}
-  - {fileID: 2476678828979255959}
-  - {fileID: 2476678828979255947}
-  - {fileID: 2476678828979255921}
-  - {fileID: 2476678828979255963}
-  - {fileID: 2476678828979255953}
-  - {fileID: 2476678828979255997}
-  - {fileID: 2476678828979255885}
-  - {fileID: 2476678828979255875}
-  - {fileID: 2476678828979255873}
-  - {fileID: 2476678828979255945}
-  - {fileID: 2476678828979255931}
-  - {fileID: 2476678828979255951}
-  - {fileID: 2476678828979255987}
-  - {fileID: 2476678828979255983}
-  - {fileID: 2476678828979255933}
-  - {fileID: 2476678828979255973}
-  - {fileID: 2476678828979255999}
-  - {fileID: 2476678828979255887}
-  - {fileID: 2476678828979255941}
-  - {fileID: 2476678828979255955}
-  - {fileID: 2476678828979255995}
-  - {fileID: 2476678828979255903}
-  - {fileID: 2476678828979255969}
-  - {fileID: 2476678828979255981}
-  - {fileID: 2476678828979255891}
-  - {fileID: 2476678828979255889}
-  - {fileID: 2476678828979255895}
-  - {fileID: 2476678828979255949}
-  - {fileID: 2476678828979255925}
-  - {fileID: 2476678828979255975}
-  - {fileID: 2476678828979255961}
---- !u!114 &2476678828979255917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476678828989451823}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16931e3bbabb00f478bbbe4759af8343, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObj: {fileID: 0}
-  isIkActive: 0
-  mixWeight: 1
 --- !u!114 &2476678828979255919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,6 +1032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b7ac2afc76a4c0294d6a8f2df285bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: 0
 --- !u!1 &2476678828989451825
 GameObject:
   m_ObjectHideFlags: 0
