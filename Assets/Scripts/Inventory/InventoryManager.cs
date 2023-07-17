@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryMenu;
     private bool menuActivated;
     private bool state;
+
+    public ItemSlot[] itemSlot;
 
 
     // Start is called before the first frame update
@@ -38,4 +41,21 @@ public class InventoryManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
+
+    public void AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite)
+    {
+        Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
+
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (itemSlot[i].isFull == false)
+            {
+                itemSlot[i].AddItem(itemName, quantity, itemSprite);
+                return;
+            }
+        }
+    }
+
+
 }
