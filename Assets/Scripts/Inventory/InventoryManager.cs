@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,8 +10,11 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryMenu;
     private bool menuActivated;
     private bool state;
+    public Image descriptionImage;
 
     public ItemSlot[] itemSlot;
+
+    public ItemSO[] itemSOs;
 
 
     // Start is called before the first frame update
@@ -43,6 +47,21 @@ public class InventoryManager : MonoBehaviour
     }
 
 
+    public void UseItem(string itemName)
+    {
+        for (int i = 0; i < itemSOs.Length; i++)
+        {
+            if (itemSOs[i].itemName == itemName)
+            {
+                itemSOs[i].UseItem();
+                //Debug.Log("Sending request to the ItemSO script.");
+            }
+        }
+        //Debug.Log("Inventory Manager is trying to use the item.");
+    }
+
+
+
     public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
     {
         //Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
@@ -55,7 +74,7 @@ public class InventoryManager : MonoBehaviour
                 if (leftOverItems > 0)
 
                     leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription);//Recursion until all items are added. CAUSING ERRORS
-                    Debug.Log("Empty slot found. " + leftOverItems + " items left.");
+                    //Debug.Log("Empty slot found. " + leftOverItems + " items left.");
                 return leftOverItems;
                 
             }
@@ -66,6 +85,7 @@ public class InventoryManager : MonoBehaviour
 
     public void DeselectAllSlots()
     {
+        descriptionImage.enabled = true;
         for (int i = 0; i < itemSlot.Length; i++)
         {
             itemSlot[i].selectedShader.SetActive(false);

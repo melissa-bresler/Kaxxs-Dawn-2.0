@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
                 quantity = leftOverItems;
             }
             
-            Debug.Log("Player has collided with an item.");
+            //Debug.Log("Player has collided with an item.");
         }
     }
 }

@@ -33,4 +33,19 @@ public class PlayerHealth : MonoBehaviour
             //Add end screen of whatever else here.
         }
     }
+
+    public void HealHealth(int amount)
+    {
+        if (health < maxHealth)
+        {
+            health += amount;
+            Debug.Log("Health increased by " + amount);
+
+            if(health > maxHealth)
+            {
+                health = maxHealth;
+                Debug.Log("Player at full health");
+            }
+        }
+    }
 }
