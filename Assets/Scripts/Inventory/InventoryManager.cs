@@ -43,19 +43,27 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite)
+    public void AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
     {
-        Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
+        //Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
 
         for (int i = 0; i < itemSlot.Length; i++)
         {
             if (itemSlot[i].isFull == false)
             {
-                itemSlot[i].AddItem(itemName, quantity, itemSprite);
+                itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
                 return;
             }
         }
     }
 
+    public void DeselectAllSlots()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            itemSlot[i].selectedShader.SetActive(false);
+            itemSlot[i].thisItemSelected = false;
+        }
+    }
 
 }
