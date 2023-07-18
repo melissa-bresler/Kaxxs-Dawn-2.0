@@ -41,11 +41,11 @@ public class PlayerHealth : MonoBehaviour
             health += amount;
             Debug.Log("Health increased by " + amount);
 
-            if(health > maxHealth)
+            /*if(health > maxHealth)
             {
                 health = maxHealth;
                 Debug.Log("Player at full health");
-            }
+            }*/
         }
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Health Potion
   statToChange: 1
   amountToChangeStat: 1
+  itemPrefab: {fileID: 173500, guid: fb5a9652227c545d98a413cd73b80b69, type: 3}

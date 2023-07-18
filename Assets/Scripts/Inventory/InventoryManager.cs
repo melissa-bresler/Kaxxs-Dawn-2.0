@@ -47,22 +47,24 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void UseItem(string itemName)
+    public bool UseItem(string itemName)
     {
         for (int i = 0; i < itemSOs.Length; i++)
         {
             if (itemSOs[i].itemName == itemName)
             {
-                itemSOs[i].UseItem();
+                bool usable = itemSOs[i].UseItem();
+                return usable;
                 //Debug.Log("Sending request to the ItemSO script.");
             }
         }
+        return false;
         //Debug.Log("Inventory Manager is trying to use the item.");
     }
 
 
 
-    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription, ItemSO itemData)
     {
         //Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
 
@@ -70,10 +72,10 @@ public class InventoryManager : MonoBehaviour
         {
             if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
             {
-                int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
+                int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemData);
                 if (leftOverItems > 0)
 
-                    leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription);//Recursion until all items are added. CAUSING ERRORS
+                    leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemData);//Recursion until all items are added. CAUSING ERRORS
                     //Debug.Log("Empty slot found. " + leftOverItems + " items left.");
                 return leftOverItems;
                 

@@ -10,15 +10,28 @@ public class ItemSO : ScriptableObject
     public StatToChange statToChange = new StatToChange();
     public int amountToChangeStat;
 
+    public GameObject itemPrefab;
 
 
-    public void UseItem()
+
+    public bool UseItem()
     {
         if(statToChange == StatToChange.health)
         {
-            GameObject.Find("Player").GetComponent<PlayerHealth>().HealHealth(amountToChangeStat);
+            PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+            if(playerHealth.health == playerHealth.maxHealth)
+            {
+                return false;
+            }
+            else
+            {
+                playerHealth.HealHealth(amountToChangeStat);
+                return true;
+            }
+
             //Debug.Log("SO is trying to use the item and increase the Player's health.");
         }
+        return false;
     }
 
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -16,6 +17,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public string itemDescription;
     //public Sprite emptySprite; //Uncomment once you've added an empty sprite
     [SerializeField] public int maxNumberOfItems;
+
+
+    public ItemSO itemData;
 
     //Item Slot
     [SerializeField] private TMP_Text quantityText;
@@ -39,7 +43,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription, ItemSO itemData)
     {
         //Debug.Log("Item added to inventory");
 
@@ -60,6 +64,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         //Update description
         this.itemDescription = itemDescription;
+
+        this.itemData = itemData;
 
         //Update quantity
         this.quantity += quantity;
@@ -94,7 +100,43 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            //OnRightClick();
+            OnRightClick();
+        }
+    }
+
+    private void OnRightClick() //Drop Item
+    {
+        GameObject itemToDrop = new GameObject(itemName);
+        Item newItem = itemToDrop.AddComponent<Item>();
+        newItem.quantity = 1;
+        newItem.itemName = itemName;
+        newItem.sprite = itemSprite;
+        newItem.itemDescription = itemDescription;
+
+        //This probably has to be changed for a 3D game
+        //SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
+        //sr.sprite = itemSprite;
+        //sr.sortingOrder = 5;
+
+        //Drop the item
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 offset = new Vector3 (0.5f, 0, 0);
+        Quaternion playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation;
+        Instantiate(itemData.itemPrefab, playerPosition + offset, playerRotation); //Can't drop the same item twice //Always drops the item on the right of the screen, regardless of player rotation
+
+
+        //Add collider
+        //itemToDrop.AddComponent<BoxCollider>();
+
+        //Set location
+        //itemToDrop.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0.5f, 0, 0);
+
+        //Subtract the item
+        this.quantity -= 1;
+        quantityText.text = this.quantity.ToString();
+        if (this.quantity <= 0)
+        {
+            EmptySlot();
         }
     }
 
@@ -102,22 +144,45 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (thisItemSelected)
         {
-            inventoryManager.UseItem(itemName);
-            //Debug.Log("Item used.");
+            bool usable = inventoryManager.UseItem(itemName);
+            if (usable)
+            {
+                //Debug.Log("Item used.");
+                this.quantity -= 1;
+                quantityText.text = this.quantity.ToString();
+                if (this.quantity <= 0)
+                {
+                    EmptySlot();
+                }
+            }
         }
-
-        inventoryManager.DeselectAllSlots();
-        selectedShader.SetActive(true);
-        thisItemSelected = true;
-        itemDescriptionNameText.text = itemName;
-        itemDescriptionText.text = itemDescription;
-        itemDescriptionImage.sprite = itemSprite;
-
-        //Uncomment once you've added an empty sprite
-        /*if(itemDescriptionImage.sprite == null)
+        else
         {
-            itemDescriptionImage.sprite = emptySprite;
+            inventoryManager.DeselectAllSlots();
+            selectedShader.SetActive(true);
+            thisItemSelected = true;
+            itemDescriptionNameText.text = itemName;
+            itemDescriptionText.text = itemDescription;
+            itemDescriptionImage.sprite = itemSprite;
+
+            //Uncomment once you've added an empty sprite
+            /*if(itemDescriptionImage.sprite == null)
+            {
+                itemDescriptionImage.sprite = emptySprite;
+            }
+            */
         }
-        */
+    }
+
+    private void EmptySlot()
+    {
+        quantityText.enabled = false;
+        itemImage.sprite = null;
+        itemImage.enabled = false;
+
+        itemDescriptionNameText.text = "";
+        itemDescriptionText.text = "";
+        itemDescriptionImage.sprite = null;
+        itemDescriptionImage.enabled = false;
     }
 }
