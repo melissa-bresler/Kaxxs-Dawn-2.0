@@ -11,7 +11,6 @@ public class Item : MonoBehaviour
 
     private InventoryManager inventoryManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
@@ -21,8 +20,17 @@ public class Item : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
-            Destroy(gameObject);
+            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
+            if (leftOverItems <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                quantity = leftOverItems;
+            }
+            
+            Debug.Log("Player has collided with an item.");
         }
     }
 }

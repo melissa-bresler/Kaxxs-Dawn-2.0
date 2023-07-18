@@ -15,6 +15,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public bool isFull;
     public string itemDescription;
     //public Sprite emptySprite; //Uncomment once you've added an empty sprite
+    [SerializeField] public int maxNumberOfItems;
 
     //Item Slot
     [SerializeField] private TMP_Text quantityText;
@@ -38,24 +39,50 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
     {
         //Debug.Log("Item added to inventory");
 
+        //Check if slot is already full
+        if (isFull)
+        {
+            return quantity;
+        }
+
+        //Update name
         this.itemName = itemName;
-        this.quantity = quantity;
+
+        //Update image
         this.itemSprite = itemSprite;
-        this.itemDescription = itemDescription;
-        isFull = true;
-
-
-        quantityText.text = quantity.ToString();
-        quantityText.enabled = true;
-        //Debug.Log("Text enabled");
-
         itemImage.sprite = itemSprite;
         itemImage.enabled = true;
         //Debug.Log("Image enabled");
+
+        //Update description
+        this.itemDescription = itemDescription;
+
+        //Update quantity
+        this.quantity += quantity;
+        if (this.quantity >= maxNumberOfItems)
+        {
+            quantityText.text = maxNumberOfItems.ToString();
+            quantityText.enabled = true;
+            //Debug.Log("Text enabled");
+            isFull = true;
+
+            //Return the leftovers
+            int extraItems = this.quantity - maxNumberOfItems;
+            this.quantity = maxNumberOfItems;
+            return extraItems;
+        }
+
+        //Update quantity text
+        quantityText.text = this.quantity.ToString();
+        quantityText.enabled = true;
+
+
+        return 0;
+
     }
 
     

@@ -43,18 +43,25 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription)
     {
         //Debug.Log("ItemName = " + itemName + ". Quantity= " + quantity + ". Sprite= " + itemSprite);
 
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if (itemSlot[i].isFull == false)
+            if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
             {
-                itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
-                return;
+                int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
+                if (leftOverItems > 0)
+
+                    leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription);//Recursion until all items are added. CAUSING ERRORS
+                    Debug.Log("Empty slot found. " + leftOverItems + " items left.");
+                return leftOverItems;
+                
             }
         }
+        //Debug.Log("Inventory Manager is trying to add " + itemName);
+        return quantity;
     }
 
     public void DeselectAllSlots()
