@@ -31,8 +31,9 @@ public class Item : MonoBehaviour
             {
                 quantity = leftOverItems;
             }
-            
+
             //Debug.Log("Player has collided with an item.");
+            Debug.Log("ITEM DATA: \n itemName: " + itemName + "\n quantity: " + quantity + "\n sprite: " + sprite + "\n itemDescription: " + itemDescription + "\n itemData: " + itemData);
         }
     }
 }

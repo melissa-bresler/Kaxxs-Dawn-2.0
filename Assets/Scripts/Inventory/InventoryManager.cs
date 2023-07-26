@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IControllable
 {
 
     public GameObject InventoryMenu;
@@ -16,15 +16,8 @@ public class InventoryManager : MonoBehaviour
 
     public ItemSO[] itemSOs;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    public void update()
     {
         InventoryMenu.SetActive(state);
     }

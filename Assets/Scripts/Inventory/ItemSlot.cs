@@ -94,7 +94,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Left) //Is this usinng the old imput system?
+        if(eventData.button == PointerEventData.InputButton.Left) //Is this using the old imput system?
         {
             OnLeftClick();
         }
@@ -106,37 +106,33 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     private void OnRightClick() //Drop Item
     {
-        GameObject itemToDrop = new GameObject(itemName);
-        Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = itemSprite;
-        newItem.itemDescription = itemDescription;
-
-        //This probably has to be changed for a 3D game
-        //SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
-        //sr.sprite = itemSprite;
-        //sr.sortingOrder = 5;
-
-        //Drop the item
-        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 offset = new Vector3 (0.5f, 0, 0);
-        Quaternion playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation;
-        Instantiate(itemData.itemPrefab, playerPosition + offset, playerRotation); //Can't drop the same item twice //Always drops the item on the right of the screen, regardless of player rotation
-
-
-        //Add collider
-        //itemToDrop.AddComponent<BoxCollider>();
-
-        //Set location
-        //itemToDrop.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0.5f, 0, 0);
-
-        //Subtract the item
-        this.quantity -= 1;
-        quantityText.text = this.quantity.ToString();
-        if (this.quantity <= 0)
+        if (this.quantity != 0)
         {
-            EmptySlot();
+            GameObject itemToDrop = new GameObject(itemName);
+            Item newItem = itemToDrop.AddComponent<Item>();
+            newItem.quantity = 1;
+            newItem.itemName = itemName;
+            newItem.sprite = itemSprite;
+            newItem.itemDescription = itemDescription;
+
+
+            //Drop the item
+            Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            Vector3 offset = new Vector3(1f, 0, 0); //Will always spawn to the right
+            Quaternion playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation; //this doesn't seem to be doing anything
+            Instantiate(itemData.itemPrefab, playerPosition + offset, playerRotation);
+
+
+            //Set location
+            //itemToDrop.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0.5f, 0, 0);
+
+            //Subtract the item
+            this.quantity -= 1;
+            quantityText.text = this.quantity.ToString();
+            if (this.quantity <= 0)
+            {
+                EmptySlot();
+            }
         }
     }
 
@@ -144,17 +140,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (thisItemSelected)
         {
-            bool usable = inventoryManager.UseItem(itemName);
-            if (usable)
+            if (this.quantity != 0) //Stops player from using an item they've already dropped/used
             {
-                //Debug.Log("Item used.");
-                this.quantity -= 1;
-                quantityText.text = this.quantity.ToString();
-                if (this.quantity <= 0)
+                bool usable = inventoryManager.UseItem(itemName);
+                if (usable)
                 {
-                    EmptySlot();
+                    //Debug.Log("Item used.");
+                    this.quantity -= 1;
+                    quantityText.text = this.quantity.ToString();
+                    if (this.quantity <= 0)
+                    {
+                        EmptySlot();
+                    }
                 }
             }
+            
         }
         else
         {

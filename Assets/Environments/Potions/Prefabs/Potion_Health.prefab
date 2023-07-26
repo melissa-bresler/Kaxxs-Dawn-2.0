@@ -132,3 +132,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 7886e3cce3f9a49689a1b7b29c5642a5, type: 3}
   itemDescription: Tastes disgusting, but will give you back some of the health you
     lost.
+  itemData: {fileID: 11400000, guid: 08f8c7db4f6094b1fb9caada1399401c, type: 2}

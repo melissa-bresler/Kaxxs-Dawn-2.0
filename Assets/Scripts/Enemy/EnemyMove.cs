@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//[RequireComponent(typeof(EnemyDamage))]
+
 public class EnemyMove : MonoBehaviour, IControllable
 {
     private Transform player;
@@ -17,7 +19,7 @@ public class EnemyMove : MonoBehaviour, IControllable
 
     private bool isAttacking;
 
-    public PlayerHealth playerHealth;
+    //public PlayerHealth playerHealth;
 
     private void Start()
     {
@@ -42,7 +44,7 @@ public class EnemyMove : MonoBehaviour, IControllable
         //Look at the player
         transform.LookAt(player); //Too fast. Needs a delay so player can try and move around the enemy.
 
-        agent.SetDestination(player.transform.position);
+        agent.SetDestination(player.transform.position); //This line causes problems if the object/script is inactive
 
         if (Vector3.Distance(transform.position, player.position) < enemyDistance)
         {
@@ -51,6 +53,7 @@ public class EnemyMove : MonoBehaviour, IControllable
             gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
             enemyDistance = 2.5f;
             if (!isAttacking) {
+                isAttacking = true;
                 Invoke("Attack", 2.1f);
             }
         }

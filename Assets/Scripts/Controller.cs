@@ -13,8 +13,7 @@ public class Controller : MonoBehaviour
         {
             if(obj != null) //Is this okay?
             {
-                obj.GetComponent<IControllable>().update(); //Only grabbing one script for each game object
-                //Debug.Log("Update: " + obj.GetComponent<IControllable>());
+                obj.GetComponent<IControllable>().update();
             }
 
         }
