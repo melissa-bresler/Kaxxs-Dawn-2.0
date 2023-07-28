@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     {
         foreach (GameObject obj in objects)
         {
-            if(obj != null) //Is this okay?
+            if(obj != null && obj.activeSelf == true) //Is this okay?
             {
                 obj.GetComponent<IControllable>().update();
             }

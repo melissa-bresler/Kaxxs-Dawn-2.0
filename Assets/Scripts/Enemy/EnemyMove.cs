@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour, IControllable
     public void update()
     {
         MoveEnemy();
-        //enemyDamage.DamageUpdate();
+        enemyDamage.DamageUpdate();
     }
 
     void MoveEnemy()
@@ -44,7 +44,7 @@ public class EnemyMove : MonoBehaviour, IControllable
         //Look at the player
         transform.LookAt(player); //Too fast. Needs a delay so player can try and move around the enemy.
 
-        agent.SetDestination(player.transform.position); //This line causes problems if the object/script is inactive
+        agent.SetDestination(player.transform.position);
 
         if (Vector3.Distance(transform.position, player.position) < enemyDistance)
         {
