@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour, IControllable
     public void update()
     {
         MoveEnemy();
-        enemyDamage.DamageUpdate();
+        //enemyDamage.DamageUpdate();
     }
 
     void MoveEnemy()

@@ -175,6 +175,7 @@ public class PlayerMovement : MonoBehaviour, IControllable
     void OnBlock()
     {
         block = !block;
+        //Debug.Log("Block status: " + block);
     }
 
     void OnSlide()
@@ -195,6 +196,7 @@ public class PlayerMovement : MonoBehaviour, IControllable
 
     public bool GetIsBlocking()
     {
+        //Debug.Log("Block status: " + block);
         return block;
     }
 }
