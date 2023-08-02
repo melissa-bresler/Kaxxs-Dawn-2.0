@@ -7,7 +7,7 @@ public class EnemyDamage : MonoBehaviour
     public EnemyMove enemyMove;
     //public int damage = 2;
 
-    public PlayerMovement playerMovement;
+    //public PlayerMovement playerMovement;
 
     private void OnTriggerEnter(Collider collision)
     {
