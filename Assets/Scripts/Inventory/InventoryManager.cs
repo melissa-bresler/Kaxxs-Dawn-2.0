@@ -17,7 +17,7 @@ public class InventoryManager : MonoBehaviour, IControllable
     public ItemSO[] itemSOs;
 
     // Update is called once per frame
-    public void update()
+    public void update() //This isn't eactly necessary. Look at Pause menu script.
     {
         InventoryMenu.SetActive(state);
     }
