@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private string id;
+    [ContextMenu("Generate guid for id")]
+    private void GenerateGuid()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
+    private bool collected = false;
+
+
     [SerializeField] public string itemName;
     [SerializeField] public int quantity;
     [SerializeField] public Sprite sprite; //To keep track of the image for the object
@@ -25,6 +35,7 @@ public class Item : MonoBehaviour
             int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, itemData);
             if (leftOverItems <= 0)
             {
+                collected = true;
                 Destroy(gameObject);
             }
             else
@@ -35,5 +46,23 @@ public class Item : MonoBehaviour
             //Debug.Log("Player has collided with an item.");
             Debug.Log("ITEM DATA: \n itemName: " + itemName + "\n quantity: " + quantity + "\n sprite: " + sprite + "\n itemDescription: " + itemDescription + "\n itemData: " + itemData);
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        data.itemsCollected.TryGetValue(id, out collected);
+        if (collected)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        if (data.itemsCollected.ContainsKey(id))
+        {
+            data.itemsCollected.Remove(id);
+        }
+        data.itemsCollected.Add(id, collected);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 
-public class PlayerMovement : MonoBehaviour, IControllable
+public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 {
     private CharacterController _characterController;
     private float _speed = 1f;
@@ -198,5 +198,19 @@ public class PlayerMovement : MonoBehaviour, IControllable
     {
         //Debug.Log("Block status: " + block);
         return block;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+        //this.transform.rotation = data.playerRotation;
+        this.transform.rotation = Quaternion.Euler(data.playerRotation.z, data.playerRotation.x, data.playerRotation.y);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = this.transform.position;
+        data.playerRotation = this.transform.rotation.eulerAngles;
+
     }
 }

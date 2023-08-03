@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDataPersistence
 {
     //public PlayerMovement playerMovement;
 
@@ -47,5 +47,17 @@ public class PlayerHealth : MonoBehaviour
                 Debug.Log("Player at full health");
             }*/
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.maxHealth = data.maxHealth;
+        this.health = data.health;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.maxHealth = this.maxHealth;
+        data.health = this.health;
     }
 }
