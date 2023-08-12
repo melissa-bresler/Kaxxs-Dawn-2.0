@@ -203,14 +203,16 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
-        //this.transform.rotation = data.playerRotation;
-        this.transform.rotation = Quaternion.Euler(data.playerRotation.z, data.playerRotation.x, data.playerRotation.y);
+        Debug.Log("Loading player positon data: " + this.transform.position);
+        ////this.transform.rotation = data.playerRotation;
+        //this.transform.rotation = Quaternion.Euler(data.playerRotation.z, data.playerRotation.x, data.playerRotation.y);
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data) //ref
     {
         data.playerPosition = this.transform.position;
-        data.playerRotation = this.transform.rotation.eulerAngles;
+        Debug.Log("Saving player positon data: " + data.playerPosition); //This appears on the console.
+        //data.playerRotation = this.transform.rotation.eulerAngles;
 
     }
 }

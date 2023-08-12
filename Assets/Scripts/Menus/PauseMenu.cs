@@ -8,6 +8,12 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    private DataPersistenceManager dataPersistanceManager;
+
+    private void Awake()
+    {
+        dataPersistanceManager = GetComponent<DataPersistenceManager>();
+    }
 
     private void OnPause()
     {
@@ -48,5 +54,11 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Quiting Game...");
         Application.Quit();
+    }
+
+    public void SaveGame()
+    {
+        Debug.Log("Saving game from pause menu script.");
+        DataPersistenceManager.instance.SaveGame();
     }
 }

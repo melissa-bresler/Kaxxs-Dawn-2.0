@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
     //public PlayerMovement playerMovement;
 
     public int health;
-    public int maxHealth = 10;
+    public int maxHealth; // = 10 //Changing this doesn't change hearts on screen!
 
     private Animator anim;
 
@@ -53,9 +53,11 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
     {
         this.maxHealth = data.maxHealth;
         this.health = data.health;
+        Debug.Log("Loading player Max health data: " + this.maxHealth);
+        Debug.Log("Loading player Health data: " + this.health);
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data) //ref
     {
         data.maxHealth = this.maxHealth;
         data.health = this.health;
