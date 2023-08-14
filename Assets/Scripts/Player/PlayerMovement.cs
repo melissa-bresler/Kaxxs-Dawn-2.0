@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     public bool block = false;
 
     private Animator anim;
-    private float rotationSpeed = 500f; //720
+    private float rotationSpeed = 500f;
 
     private PlayerInput controls;
     private Transform mainCameraTransform;
@@ -27,13 +27,8 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     private HealthDisplay healthDisplay;
 
 
-    //Do I have to enable/disable something?
-
-
-    // Start is called before the first frame update
-    void Awake() //Changed from start
+    void Awake()
     {
-        //Debug.Log("Player Created.");
         _characterController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
@@ -122,8 +117,6 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
                     _characterController.SimpleMove(movement * _runSpeed);
                 }
 
-                //Debug.Log("Run= " + run);
-
             }
 
             //Stops walking animation
@@ -148,15 +141,12 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     void OnRun()
     {
-        //Debug.Log("Character is RUNNING.");
         run = !run;
     }
 
     void OnAttack()
     {
-        //Debug.Log("Character is ATTACKING.");
         anim.SetTrigger("isAttacking");
-        //anim.ResetTrigger("isAttacking");
     }
 
     void OnJump()
@@ -175,7 +165,6 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     void OnBlock()
     {
         block = !block;
-        //Debug.Log("Block status: " + block);
     }
 
     void OnSlide()
@@ -196,7 +185,6 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     public bool GetIsBlocking()
     {
-        //Debug.Log("Block status: " + block);
         return block;
     }
 

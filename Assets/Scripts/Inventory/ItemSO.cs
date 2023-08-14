@@ -21,6 +21,7 @@ public class ItemSO : ScriptableObject
             PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
             if(playerHealth.health == playerHealth.maxHealth)
             {
+                Debug.Log("Player already has full health. Cannot use item.");
                 return false;
             }
             else

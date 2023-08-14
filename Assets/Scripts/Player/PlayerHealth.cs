@@ -9,11 +9,11 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
     //public PlayerMovement playerMovement;
 
     public int health;
-    public int maxHealth; // = 10 //Changing this doesn't change hearts on screen!
+    public int maxHealth;
 
     private Animator anim;
 
-    void Awake() //Changed from start
+    void Awake()
     {
         anim = GetComponent<Animator>();
 
@@ -29,13 +29,12 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
         health -= amount;
         if (health <= 0)
         {
-            //Play death animation here
             anim.SetTrigger("isDead");
 
-            //playerMovement.enabled = false;
+            //TODO: Disable player movement.
             Debug.Log("Player is dead. They can no longer move.");
 
-            //Add end screen of whatever else here.
+            Invoke("EndOfGame", 5f);
         }
         else
         {
@@ -49,13 +48,12 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
         {
             health += amount;
             Debug.Log("Health increased by " + amount);
-
-            /*if(health > maxHealth)
-            {
-                health = maxHealth;
-                Debug.Log("Player at full health");
-            }*/
         }
+    }
+
+    public void EndOfGame()
+    {
+        //TODO: Add end of game stuff here.
     }
 
     public void LoadData(GameData data)

@@ -13,7 +13,7 @@ public class MusicWhenNear : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" || collider.tag == "Intro")
         {
             music.Play();
         }

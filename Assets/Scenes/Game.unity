@@ -8295,7 +8295,7 @@ AudioSource:
   m_GameObject: {fileID: 965280004}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: ae6fd27df3c7348ef88fde19f3a536bc, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7cda4cf4c21d34a47bcafe8bc4032504, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -10346,6 +10346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMove: {fileID: 1483633057}
+  damage: 1
 --- !u!54 &1417423808
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10817,6 +10818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMove: {fileID: 1483633057}
+  damage: 1
 --- !u!1 &1491926794
 GameObject:
   m_ObjectHideFlags: 0
