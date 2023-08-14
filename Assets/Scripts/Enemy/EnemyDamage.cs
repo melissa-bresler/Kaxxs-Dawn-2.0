@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     public EnemyMove enemyMove;
-    //public int damage = 2;
+    private bool canDamage = true;
+    [SerializeField] private int damage = 1;
 
     //public PlayerMovement playerMovement;
 
@@ -18,11 +19,19 @@ public class EnemyDamage : MonoBehaviour
 
             if (collision.gameObject.tag == "Player")
             {
-                Debug.Log("STEP 3: " + collision.gameObject.GetComponent<PlayerMovement>().GetIsBlocking());
+                //Debug.Log("STEP 3: " + collision.gameObject.GetComponent<PlayerMovement>().GetIsBlocking());
 
                 if (!collision.gameObject.GetComponent<PlayerMovement>().GetIsBlocking())
                 {
-                    collision.gameObject.GetComponentInParent<PlayerHealth>().TakeDamage(1); //Change 1 back to 'damage' after testing
+                    if (canDamage)
+                    {
+                        StartCoroutine(DamageCooldown(collision.gameObject));
+                    }
+                    else
+                    {
+                        Debug.Log("Can't damage yet. Cooldown active.");
+                    }
+                    //collision.gameObject.GetComponentInParent<PlayerHealth>().TakeDamage(damage);
                 }
                 else
                 {
@@ -32,7 +41,14 @@ public class EnemyDamage : MonoBehaviour
         }
     }
 
-
+    private IEnumerator DamageCooldown(GameObject player)
+    {
+        player.GetComponentInParent<PlayerHealth>().TakeDamage(damage);
+        Debug.Log("Player takes damage.");
+        canDamage = false;
+        yield return new WaitForSeconds(2f);
+        canDamage = true;
+    }
 
 
 }

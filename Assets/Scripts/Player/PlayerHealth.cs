@@ -13,6 +13,12 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
 
     private Animator anim;
 
+    void Awake() //Changed from start
+    {
+        anim = GetComponent<Animator>();
+
+    }
+
     private void Start()
     {
         health = maxHealth;
@@ -24,13 +30,16 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
         if (health <= 0)
         {
             //Play death animation here
-            //Add in death animation to animator
-            //anim.SetBool("isBlocking", false);
+            anim.SetTrigger("isDead");
 
             //playerMovement.enabled = false;
             Debug.Log("Player is dead. They can no longer move.");
 
             //Add end screen of whatever else here.
+        }
+        else
+        {
+            anim.SetTrigger("isInjured");
         }
     }
 
