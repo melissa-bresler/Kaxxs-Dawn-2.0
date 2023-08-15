@@ -60,8 +60,7 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
     {
         this.maxHealth = data.maxHealth;
         this.health = data.health;
-        Debug.Log("Loading player Max health data: " + this.maxHealth);
-        Debug.Log("Loading player Health data: " + this.health);
+        Debug.Log("Loading player Max health data: " + this.maxHealth + "\n Loading player Health data: " + this.health);
     }
 
     public void SaveData(GameData data) //ref

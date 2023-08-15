@@ -22,24 +22,16 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void ChangeScene()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        //Debug.Log("Loading next scene.");
-    }
-    
     public void NewGame()
     {
-        DataPersistenceManager.instance.NewGame();
-        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        ChangeScene();
+        saveSlotsMenu.ActivateMenu(true);
+        DataPersistenceManager.instance.newGame = true;
     }
     
     public void LoadGame()
     {
-        //DataPersistenceManager.instance.LoadGame();
-        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        saveSlotsMenu.ActivateMenu();
+        saveSlotsMenu.ActivateMenu(false);
+        DataPersistenceManager.instance.newGame = false;
     }
     
     

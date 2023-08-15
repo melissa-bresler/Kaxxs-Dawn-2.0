@@ -37,7 +37,8 @@ public class FileDataHandler
 
 
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
-                Debug.Log("File found and data loaded. \n FileDataHandler Script.");
+                //Debug.Log("File found and data loaded. \n FileDataHandler Script.");
+
                 //Debug.Log(Application.persistentDataPath);
                 //Debug.Log(fullPath);
             }
@@ -67,7 +68,7 @@ public class FileDataHandler
                 }
             }
 
-            Debug.Log("Data saved to file.");
+            //Debug.Log("Data saved to file.");
             //Debug.Log(Application.persistentDataPath);
            // Debug.Log(fullPath);
 

@@ -17,12 +17,12 @@ public class SaveSlotsMenu : MonoBehaviour
     {
         DataPersistenceManager.instance.ChangeSelectedProfileID(saveSlot.GetProfileID()); //This must go before LoadGame. Need to know what to load before loading it.
         //DataPersistenceManager.instance.NewGame();
-        DataPersistenceManager.instance.newGame = false;
+        //DataPersistenceManager.instance.newGame = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         
     }
 
-    public void ActivateMenu()
+    public void ActivateMenu(bool newGame)
     {
         Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData(); //Creates dictionary of Save Slots with retrieved data
 
@@ -32,16 +32,16 @@ public class SaveSlotsMenu : MonoBehaviour
 
             Debug.Log("Save Slot ID: " + saveSlot.GetProfileID()); //i.e. ID: SaveSlot1
 
-            //if (profilesGameData.ContainsKey(saveSlot.GetProfileID())) //Save slot name must match game data key i.e. ID
-            //{
+            if (profilesGameData.ContainsKey(saveSlot.GetProfileID())) //Save slot name must match game data key i.e. ID
+            {
                 profilesGameData.TryGetValue(saveSlot.GetProfileID(), out profileData); //Retrieves information from matching ID
                 saveSlot.SetData(profileData); //Alters button according to what information the data contains
-            //}
-            /*else
+            }
+            else
             {
-                Debug.Log("Nothing to be loaded.");
-            }*/
-            if(profileData == null)
+                Debug.Log("Nothing to be loaded to Save Slot " + saveSlot.GetProfileID());
+            }
+            if(profileData == null && !newGame)
             {
                 saveSlot.SetInteractable(false);
             }

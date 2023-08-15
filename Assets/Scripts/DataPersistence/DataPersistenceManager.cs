@@ -65,6 +65,10 @@ public class DataPersistenceManager : MonoBehaviour
         {
             LoadGame(); //Loads game on startup of the specific scene when new game has not been selected.
         }
+        else if (scene.name == "Game")
+        {
+            NewGame();
+        }
     }
 
 
@@ -96,8 +100,9 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         Debug.Log("Creating New Game!");
-        newGame = true;
+        //newGame = true;
         this.gameData = new GameData();
+
     }
 
     //IEnumerator LoadGame()
@@ -107,9 +112,7 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData = dataHandler.Load(selectedProfileID); //This works
         //gameData.SetHasSavedData();
 
-        Debug.Log("Player position: " + this.gameData.playerPosition);
-        Debug.Log("Player health: " + this.gameData.health);
-        Debug.Log("Max health: " + this.gameData.maxHealth);
+        Debug.Log("LOADING DATA (DPM): \n Player position: " + this.gameData.playerPosition + "\n Player health: " + this.gameData.health + "\n Max health: " + this.gameData.maxHealth);
 
         if (this.gameData == null)
         {
@@ -127,7 +130,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
-            Debug.Log("Loading data...");
+            //Debug.Log("Loading data...");
             dataPersistenceObj.LoadData(gameData); //Grabs data from file and copies it onto each appropriate script.
         }
 
@@ -139,7 +142,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void SaveGame()
     {
         this.gameData = new GameData();
-        Debug.Log("Game data: " + this.gameData);
+        //Debug.Log("Game data: " + this.gameData);
 
         if(this.gameData == null)
         {
@@ -150,7 +153,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) //This line causing issues
         {
-            Debug.Log("Saving data..."); //This appears on the console.
+            //Debug.Log("Saving data...");
             dataPersistenceObj.SaveData(gameData); //ref
         }
 
