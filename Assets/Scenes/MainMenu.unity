@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 120825787}
   - component: {fileID: 120825786}
   - component: {fileID: 120825785}
+  - component: {fileID: 120825788}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -244,6 +245,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -2.606, y: 3.571, z: 0.145}
+--- !u!114 &120825788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120825784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870b9a8f0f82f4f56800cc427bcd1025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanLineJitter: 0
+  _verticalJump: 0
+  _horizontalShake: 0
+  _colorDrift: 0
+  _shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
 --- !u!1 &208898096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,8 +2144,9 @@ GameObject:
   - component: {fileID: 1181418596}
   - component: {fileID: 1181418599}
   - component: {fileID: 1181418598}
+  - component: {fileID: 1181418600}
   m_Layer: 0
-  m_Name: Music
+  m_Name: Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2269,6 +2288,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1181418600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181418595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec798034a24746d8988f5dfd0a9dcd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlitchEffect: {fileID: 120825788}
 --- !u!1 &1196212150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,8 +3646,8 @@ GameObject:
   - component: {fileID: 1988424898}
   - component: {fileID: 1988424897}
   m_Layer: 0
-  m_Name: Intro
-  m_TagString: Intro
+  m_Name: Trigger
+  m_TagString: Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

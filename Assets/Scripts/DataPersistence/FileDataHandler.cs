@@ -37,7 +37,7 @@ public class FileDataHandler
 
 
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
-                Debug.Log("File found and data loaded. \n FileDataHandler Script."); //This appears on the console.
+                Debug.Log("File found and data loaded. \n FileDataHandler Script.");
                 //Debug.Log(Application.persistentDataPath);
                 //Debug.Log(fullPath);
             }
@@ -81,26 +81,29 @@ public class FileDataHandler
 
     public Dictionary<string, GameData> LoadAllProfiles()
     {
-        Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>();
-        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
+        Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>(); //Empty Dictionary
 
-        foreach (DirectoryInfo dirInfo in dirInfos)
+        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories(); //Finds all folders within assigned path
+
+        foreach (DirectoryInfo dirInfo in dirInfos) //For each folder
         {
-            string profileID = dirInfo.Name;
+            string profileID = dirInfo.Name; //Makes the ID the name of the folder i.e. SaveSlot1
             Debug.Log("Directory Info Name: " + dirInfo.Name);
-            string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+
+            string fullPath = Path.Combine(dataDirPath, profileID, dataFileName); //if folder is empty i.e. has no data
+
             if (!File.Exists(fullPath))
             {
                 Debug.LogWarning("Skipping directory when loading all profiles because it does not contain data: " + profileID);
                 continue;
             }
 
-            GameData profileData = Load(profileID);
-            profileData.SetHasSavedData();
+            GameData profileData = Load(profileID); //Game data copies info from file for each slot/file?
+            profileData.SetHasSavedData(); //Game data now chaged t has saved data, but only in game, not on computer
 
-            Debug.Log("Player position: " + profileData.playerPosition);
-            Debug.Log("Player health: " + profileData.health);
-            Debug.Log("Max health: " + profileData.maxHealth);
+            //Debug.Log("Player position: " + profileData.playerPosition);
+            //Debug.Log("Player health: " + profileData.health);
+            //Debug.Log("Max health: " + profileData.maxHealth);
 
             if (profileData != null)
             {
@@ -112,7 +115,27 @@ public class FileDataHandler
             }
         }
 
-        return profileDictionary;
+        return profileDictionary; //Return dictionary of game data with corresponding IDs as key. TODO: What is the ID? Linked to Name.
+    }
+
+    public bool FindIfSavedData()
+    {
+        int count = 0;
+        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories(); //Finds all folders within assigned path
+
+        foreach (DirectoryInfo dirInfo in dirInfos)
+        {
+            count++;
+        }
+
+        if (count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

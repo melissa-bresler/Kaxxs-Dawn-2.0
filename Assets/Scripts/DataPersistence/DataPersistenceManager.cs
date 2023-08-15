@@ -9,7 +9,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
 
     [Header("File Storage Config")] //Adds a header into the Inspector in Unity
-    [SerializeField] private string fileName;
+    [SerializeField] private string fileName; //data.game //Written into Unity Inspector
 
 
     private GameData gameData;
@@ -18,9 +18,11 @@ public class DataPersistenceManager : MonoBehaviour
 
     private FileDataHandler dataHandler;
 
-    private string selectedProfileID = "test";
+    private string selectedProfileID = "";
 
     public static DataPersistenceManager instance { get; private set; }
+
+    public bool newGame = true;
 
     private void Awake()
     {
@@ -57,11 +59,16 @@ public class DataPersistenceManager : MonoBehaviour
     {
         //Debug.Log("OnSceneLoaded called");
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        LoadGame(); //Loads game on startup of scene.
+        //LoadGame(); //Loads game on startup of scene.
+
+        if (scene.name == "Game" && newGame == false)
+        {
+            LoadGame(); //Loads game on startup of the specific scene when new game has not been selected.
+        }
     }
 
 
-    public void onSceneUnloaded(Scene scene)
+    public void onSceneUnloaded(Scene scene) //Could enable this to save game automatically when user exits scene
     {
         //Debug.Log("OnSceneUnloaded called.");
         //SaveGame();
@@ -89,6 +96,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         Debug.Log("Creating New Game!");
+        newGame = true;
         this.gameData = new GameData();
     }
 
@@ -125,7 +133,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         //Debug.Log("Loaded health: " + gameData.health);
         //Debug.Log("Loaded maxHealth: " + gameData.maxHealth);
-        Debug.Log("Loaded playerPosition: " + gameData.playerPosition); //This appears on the console.
+        //Debug.Log("Loaded playerPosition: " + gameData.playerPosition);
     }
 
     public void SaveGame()
@@ -170,7 +178,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool HasGameData()
     {
-        return gameData != null;
+        //return gameData != null;
+        return dataHandler.FindIfSavedData();
     }
 
     public Dictionary<string, GameData> GetAllProfilesGameData()
