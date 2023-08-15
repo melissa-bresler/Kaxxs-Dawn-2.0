@@ -362,6 +362,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 68857367931920903, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}
+      propertyPath: m_text
+      value: PROGRESS 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}
@@ -2882,6 +2886,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 68857367931920903, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}
+      propertyPath: m_text
+      value: PROGRESS 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}
@@ -3842,6 +3850,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 620917212}
+    - target: {fileID: 68857367931920903, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}
+      propertyPath: m_text
+      value: PROGRESS 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 917ee436d1fa34f7882c4373c8791ca2, type: 3}

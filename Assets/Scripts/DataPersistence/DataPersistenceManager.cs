@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
+using TMPro;
+using Unity.VisualScripting;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -59,35 +61,33 @@ public class DataPersistenceManager : MonoBehaviour
     {
         //Debug.Log("OnSceneLoaded called");
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        //LoadGame(); //Loads game on startup of scene.
 
-        if (scene.name == "Game" && newGame == false)
+        if (scene.name != "MainMenu")
         {
-            LoadGame(); //Loads game on startup of the specific scene when new game has not been selected.
+            if (newGame == false)
+            {
+                LoadGame(); //Loads game on startup of the specific scene when new game has not been selected.
+            }
+            else
+            {
+                NewGame();
+            }
+
         }
-        else if (scene.name == "Game")
-        {
-            NewGame();
-        }
+        
     }
 
 
-    public void onSceneUnloaded(Scene scene) //Could enable this to save game automatically when user exits scene
+    public void onSceneUnloaded(Scene scene) //Saves game when Game scene is unloaded
     {
         //Debug.Log("OnSceneUnloaded called.");
         //SaveGame();
+        //Can't save here because objects get destroyed before save can happen when exiting the scene
     }
-    /*
-    private void Start()
-    {
-        
-    }*/
 
     public void ChangeSelectedProfileID(string newProfileID)
     {
         this.selectedProfileID = newProfileID;
-        //Invoke("LoadGame", 1f);
-        //StartCoroutine(LoadGame());
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
@@ -100,32 +100,22 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         Debug.Log("Creating New Game!");
-        //newGame = true;
         this.gameData = new GameData();
 
     }
 
-    //IEnumerator LoadGame()
     public void LoadGame()
     {
 
         this.gameData = dataHandler.Load(selectedProfileID); //This works
-        //gameData.SetHasSavedData();
 
         Debug.Log("LOADING DATA (DPM): \n Player position: " + this.gameData.playerPosition + "\n Player health: " + this.gameData.health + "\n Max health: " + this.gameData.maxHealth);
 
         if (this.gameData == null)
         {
             Debug.Log("No data was found. A new game needs to be started before data can be loaded.");
-            //NewGame();
         }
-        /*
-        while(dataPersistenceObjects.Count() == 0) //This pauses the method until the value is true and then continues where it left off.
-        {
-            Debug.Log("Co-routine running.");
-            yield return new WaitForSeconds(1f);
-        }
-        */
+
         Debug.Log("Data Persistance Objects: " + dataPersistenceObjects.Count());
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -181,7 +171,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool HasGameData()
     {
-        //return gameData != null;
         return dataHandler.FindIfSavedData();
     }
 
@@ -189,4 +178,5 @@ public class DataPersistenceManager : MonoBehaviour
     {
         return dataHandler.LoadAllProfiles();
     }
+
 }

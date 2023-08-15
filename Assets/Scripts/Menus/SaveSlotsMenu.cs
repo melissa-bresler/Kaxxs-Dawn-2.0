@@ -39,11 +39,19 @@ public class SaveSlotsMenu : MonoBehaviour
             }
             else
             {
-                Debug.Log("Nothing to be loaded to Save Slot " + saveSlot.GetProfileID());
+                Debug.Log("Nothing to be loaded to " + saveSlot.GetProfileID());
             }
-            if(profileData == null && !newGame)
+            if(profileData == null)
             {
-                saveSlot.SetInteractable(false);
+                if (!newGame)
+                {
+                    saveSlot.SetInteractable(false);
+                }
+                else
+                {
+                    saveSlot.SetInteractable(true);
+                }
+                
             }
             
         }

@@ -46,12 +46,14 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         //Debug.Log("Loading Menu...");
+        StartCoroutine(PauseAndContinue());
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
+        StartCoroutine(PauseAndContinue());
         Debug.Log("Quiting Game...");
         Application.Quit();
     }
@@ -61,4 +63,12 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Saving game from pause menu script.");
         DataPersistenceManager.instance.SaveGame();
     }
+
+
+    IEnumerator PauseAndContinue()
+    {
+        SaveGame();
+        yield return new WaitForSeconds(3f);
+    }
+
 }
