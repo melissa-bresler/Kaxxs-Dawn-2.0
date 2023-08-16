@@ -4161,6 +4161,10 @@ PrefabInstance:
       propertyPath: fileName
       value: data.game
       objectReference: {fileID: 0}
+    - target: {fileID: 7520639676261543777, guid: a9d7461cb99644d5f8f0daae02f5b5eb, type: 3}
+      propertyPath: savingUI
+      value: 
+      objectReference: {fileID: 815531188}
     - target: {fileID: 7520639676261543782, guid: a9d7461cb99644d5f8f0daae02f5b5eb, type: 3}
       propertyPath: m_RootOrder
       value: 4

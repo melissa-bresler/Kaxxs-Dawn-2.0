@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     private HealthDisplay healthDisplay;
 
+    public bool Enabled { get; set; } = true;
+
 
     void Awake()
     {
@@ -58,6 +60,13 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     void MovePlayer()
     {
+        if (!Enabled)
+        {
+            // Player movement is disabled
+            _characterController.SimpleMove(Vector3.zero);
+            return;
+        }
+
         Vector3 movement;
 
         if (block)
