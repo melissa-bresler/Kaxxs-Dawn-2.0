@@ -26,6 +26,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool newGame = true;
 
+    public SavingUI savingUI;
+
     private void Awake()
     {
         if (instance != null)
@@ -153,6 +155,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 
         dataHandler.Save(gameData, selectedProfileID);
+        savingUI.SaveText();
 
     }
     /*

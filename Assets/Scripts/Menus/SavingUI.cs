@@ -6,6 +6,11 @@ public class SavingUI : MonoBehaviour
 {
     [SerializeField] private GameObject savingObject;
 
+    public void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public void SaveText()
     {
         StartCoroutine(SavingCanvas());
