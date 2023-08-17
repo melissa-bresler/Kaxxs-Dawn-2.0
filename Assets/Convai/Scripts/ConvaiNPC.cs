@@ -40,7 +40,7 @@ public class ConvaiNPC : MonoBehaviour
     [SerializeField] public string CharacterID;
 
     private AudioSource audioSource;
-    [SerializeField] private Animator characterAnimator;
+    private Animator characterAnimator;
         
     [SerializeField] private TextMeshProUGUI CharacterText;
 
@@ -93,7 +93,7 @@ public class ConvaiNPC : MonoBehaviour
     {
         grpcAPI = FindObjectOfType<ConvaiGRPCAPI>();
         audioSource = GetComponent<AudioSource>();
-        //characterAnimator = GetComponent<Animator>();
+        characterAnimator = GetComponent<Animator>();
     }
 
     private void Start()
