@@ -29,6 +29,9 @@ namespace Convai.gRPCAPI
         private string stringUserText = "";
         [SerializeField] private TextMeshProUGUI UserText;
 
+        [SerializeField] private GameObject instructions;
+        [SerializeField] private GameObject textFields;
+
 
         private void Awake()
         {
@@ -65,18 +68,47 @@ namespace Convai.gRPCAPI
         /// </summary>
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Character" && other.gameObject.GetComponent<ConvaiNPC>() != null)
+            if (other.tag == "Character")
             {
-                if (activeCharacter != null)
+                if (instructions != null)
                 {
-                    activeConvaiNPC = activeCharacter.GetComponent<ConvaiNPC>();
-                    activeConvaiNPC.isCharacterActive = false;
+                    instructions.SetActive(true);
+                    //Debug.Log("Instructions should appear now.");
+                }
+                if (textFields != null)
+                {
+                    textFields.SetActive(true);
                 }
 
-                activeCharacter = other.gameObject;
-                activeConvaiNPC = activeCharacter.GetComponent<ConvaiNPC>();
+                if (other.gameObject.GetComponent<ConvaiNPC>() != null)
+                {
+                    if (activeCharacter != null)
+                    {
+                        activeConvaiNPC = activeCharacter.GetComponent<ConvaiNPC>();
+                        activeConvaiNPC.isCharacterActive = false;
+                    }
 
-                activeConvaiNPC.isCharacterActive = true;
+                    activeCharacter = other.gameObject;
+                    activeConvaiNPC = activeCharacter.GetComponent<ConvaiNPC>();
+
+                    activeConvaiNPC.isCharacterActive = true;
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Character")
+            {
+                if (instructions != null)
+                {
+                    instructions.SetActive(false);
+                    //Debug.Log("Instructions should dissappear now.");
+                }
+                if (textFields != null)
+                {
+                    textFields.SetActive(false);
+                }
             }
         }
 
