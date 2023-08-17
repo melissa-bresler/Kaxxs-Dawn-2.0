@@ -63,7 +63,6 @@ namespace Convai.gRPCAPI
         /// <summary>
         ///     This function sets the active character based on the who the player character is facing.
         /// </summary>
-        /// <param name="other">The collider of the object with which this collider collides</param>
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Character" && other.gameObject.GetComponent<ConvaiNPC>() != null)
