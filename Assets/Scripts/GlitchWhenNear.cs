@@ -12,52 +12,34 @@ public class GlitchWhenNear : MonoBehaviour
 
     private bool isGlitching = false;
 
+    private bool glitchLoop = false;
+
     void Start()
     {
         sfx = GetComponent<AudioSource>();
-        //StartCoroutine(GlitchLoop());
     }
-
-    private IEnumerator GlitchLoop()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 10f));
-            isGlitching = true;
-            StartGlitch();
-            yield return new WaitForSeconds(0.5f);
-            StopGlitch();
-            isGlitching = false;
-        }
-    }
-
-    /*
+   
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+
+        if (collider.tag == "Trigger")
         {
-            sfx.Play();
+            glitchLoop = true;
+            StartCoroutine(GlitchLoop());
         }
     }
-    */
+    
 
     private void OnTriggerStay(Collider collider)
     {
+
         if (collider.tag == "Player")
         {
             if (!isGlitching)
             {
-                //Vector3 distanceVector = collider.transform.position - transform.position;
-                //GlitchEffect.intensity = distanceVector.magnitude;
                 StartGlitch();
-                //Debug.Log("Glitch Triggered.");
                 sfx.Play();
             }
-        }
-        if (collider.tag == "Trigger")
-        {
-            //GlitchLoop();
-            StartCoroutine(GlitchLoop());
         }
     }
 
@@ -65,8 +47,11 @@ public class GlitchWhenNear : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            //Vector3 distanceVector = collider.transform.position - transform.position;
             StopGlitch();
+        }
+        if (collider.tag == "Trigger")
+        {
+            glitchLoop = false;
         }
     }
 
@@ -82,5 +67,18 @@ public class GlitchWhenNear : MonoBehaviour
         GlitchEffect.colorDrift = 0f;
         GlitchEffect.verticalJump = 0f;
         GlitchEffect.scanLineJitter = 0f;
+    }
+
+    private IEnumerator GlitchLoop()
+    {
+        while (glitchLoop)
+        {
+            yield return new WaitForSeconds(Random.Range(2f, 7f));
+            isGlitching = true;
+            StartGlitch();
+            yield return new WaitForSeconds(0.5f);
+            StopGlitch();
+            isGlitching = false;
+        }
     }
 }

@@ -24,18 +24,13 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
         playerMovemenetScript.Enabled = true; //Enables player movement when initiating this script
 
     }
-    /*//This may be causing the issues with the saving and loading
-    private void Start()
-    {
-        health = maxHealth;
-    }
-    */
+
     public void TakeDamage(int amount)
     {
         health -= amount;
         if (health <= 0)
         {
-            playerMovemenetScript.Enabled = false; //Disables player movenet after death
+            playerMovemenetScript.Enabled = false; //Disables player movement after death
             anim.SetTrigger("isDead");
             Debug.Log("Player is dead. They can no longer move.");
             Invoke("EndOfGame", 5f);
