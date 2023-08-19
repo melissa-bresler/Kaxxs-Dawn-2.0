@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -7,6 +8,8 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDataPersistence
 {
     //public PlayerMovement playerMovement;
+    private PlayerMovement playerMovemenetScript = null;
+    public GameObject gameOverUI;
 
     public int health;
     public int maxHealth;
@@ -16,24 +19,25 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
     void Awake()
     {
         anim = GetComponent<Animator>();
+        gameOverUI.SetActive(false); //Makes sure Game Over Screen isn't visible at start of game
+        playerMovemenetScript = GetComponentInParent<PlayerMovement>();
+        playerMovemenetScript.Enabled = true; //Enables player movement when initiating this script
 
     }
-
+    /*//This may be causing the issues with the saving and loading
     private void Start()
     {
         health = maxHealth;
     }
-
+    */
     public void TakeDamage(int amount)
     {
         health -= amount;
         if (health <= 0)
         {
+            playerMovemenetScript.Enabled = false; //Disables player movenet after death
             anim.SetTrigger("isDead");
-
-            //TODO: Disable player movement.
             Debug.Log("Player is dead. They can no longer move.");
-
             Invoke("EndOfGame", 5f);
         }
         else
@@ -53,7 +57,8 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
 
     public void EndOfGame()
     {
-        //TODO: Add end of game stuff here.
+        Time.timeScale = 0f;
+        gameOverUI.SetActive(true);
     }
 
     public void LoadData(GameData data)
