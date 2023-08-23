@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InstructionsMenu : MonoBehaviour
 {
-    public bool GameIsPaused = false; //static?
+    public static bool GameIsPaused = false;
 
     public GameObject instructionsMenuUI;
 

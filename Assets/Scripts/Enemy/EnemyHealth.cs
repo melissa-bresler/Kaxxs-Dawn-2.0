@@ -9,17 +9,17 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 5;
 
-    //TODO: Insert animator and injury animation?
-    //private Animator anim;
+    private Animator anim;
 
     private void Start()
     {
         currentHealth = maxHealth; //On loading, the enemy has max health
+        anim = GetComponent<Animator>();
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount; //Damegd by amount i.e. attack power
+        currentHealth -= amount; //Damaged by amount i.e. attack power
 
         if (currentHealth <= 0) //If the health reaches zero
         {
@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            //Injury animation here?
+            anim.SetTrigger("isInjured"); //Animation for the user to see their attack was successful
         }
     }
 }

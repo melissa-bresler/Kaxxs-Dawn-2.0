@@ -97,15 +97,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (this.quantity != 0)
         {
-            /*
-            GameObject itemToDrop = new GameObject(itemName);
-            Item newItem = itemToDrop.AddComponent<Item>();
-            newItem.quantity = 1;
-            newItem.itemName = itemName;
-            newItem.sprite = itemSprite;
-            newItem.itemDescription = itemDescription;
-            */
-
             //Drop the item
             Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
             Vector3 offset = new Vector3(1f, 0, 0);

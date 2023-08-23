@@ -9,7 +9,6 @@ public class PlayerKick : MonoBehaviour
         if (collision.gameObject.tag == "WeakPoint") //If collision with enemy's weak point
         {
             collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(2); //Damages enemy
-            Debug.Log("Weak point hit."); //TODO: Remove later
         }
     }
 }

@@ -31,13 +31,13 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     void Awake()
     {
-        _characterController = GetComponent<CharacterController>(); //TODO: What is the purpose of this?
-        anim = GetComponent<Animator>(); //Links animator to character
+        _characterController = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
 
-        controls = new PlayerInput(); //Links controls to input from user i.e. which buttons get pressed (arrows keys/ASWD)
-        mainCameraTransform = Camera.main.transform; //Used for finding the direction the camera is facing.
+        controls = new PlayerInput();
+        mainCameraTransform = Camera.main.transform;
 
-        healthDisplay = GetComponent<HealthDisplay>(); //TODO: What is the purpose of this?
+        healthDisplay = GetComponent<HealthDisplay>();
 
     }
 
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     public void update()
     {
         MovePlayer();
-        healthDisplay.update(); //TODO: Figure out what this does
+        healthDisplay.update();
 
     }
 
@@ -149,10 +149,6 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
         {
             anim.SetTrigger("isJumping");
         }
-        //TODO: Maybe do the bellow by adding an extra methos with a coroutine delaying mvoement.
-        //Character should stop moving when jumping
-        //Set some sort of trigger within the code?
-
     }
 
     void OnBlock() //This activates when the appropriate key is pressed and released.
@@ -182,20 +178,16 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     }
 
 
-    //TODO: Clean this up later
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
         Debug.Log("Loading player positon data: " + this.transform.position);
-        ////this.transform.rotation = data.playerRotation;
-        //this.transform.rotation = Quaternion.Euler(data.playerRotation.z, data.playerRotation.x, data.playerRotation.y);
     }
 
     public void SaveData(GameData data)
     {
         data.playerPosition = this.transform.position;
         Debug.Log("Saving player positon data: " + data.playerPosition);
-        //data.playerRotation = this.transform.rotation.eulerAngles;
 
     }
 }

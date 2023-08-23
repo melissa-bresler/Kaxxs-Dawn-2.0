@@ -47,24 +47,4 @@ public class Item : MonoBehaviour//, IDataPersistence
             Debug.Log("ITEM DATA: \n itemName: " + itemName + "\n quantity: " + quantity + "\n sprite: " + sprite + "\n itemDescription: " + itemDescription + "\n itemData: " + itemData);
         }
     }
-    //TODO: Clean up later!!!
-    /*
-    public void LoadData(GameData data)
-    {
-        data.itemsCollected.TryGetValue(id, out collected);
-        if (collected)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void SaveData(GameData data)
-    {
-        if (data.itemsCollected.ContainsKey(id))
-        {
-            data.itemsCollected.Remove(id);
-        }
-        data.itemsCollected.Add(id, collected);
-    }
-    */
 }

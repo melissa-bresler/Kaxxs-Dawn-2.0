@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public void Test() //Temporary method to check that teleport can be activates with correct keypad code
+    private AudioSource sfx;
+
+    void Start()
     {
-        Debug.Log("Keyboard unlocked teleport.");
+        sfx = GetComponent<AudioSource>(); //Links sound effect to script
+    }
+
+    public void Unlock()
+    {
+        Debug.Log("Teleport unlocked!");
+        sfx.Play(); //Plays sound effect once correct code has been input into the keyboard
     }
 }
