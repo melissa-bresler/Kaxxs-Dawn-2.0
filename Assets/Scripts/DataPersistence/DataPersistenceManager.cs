@@ -84,6 +84,11 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.gameData = new GameData();
 
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) //Ensures new data is loaded into game
+        {
+            dataPersistenceObj.LoadData(gameData); //Grabs data from file and copies it onto each appropriate script.
+        }
+
     }
 
     public void LoadGame()

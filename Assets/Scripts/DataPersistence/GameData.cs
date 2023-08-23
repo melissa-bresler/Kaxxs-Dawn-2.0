@@ -18,7 +18,7 @@ public class GameData
         playerPosition = new Vector3(-21.57f, 0.1f, 3.88f);
     }
 
-    public void SetHasSavedData() //Used to easily identify is a file has been altered from the default values
+    public void SetHasSavedData() //Used to easily identify if a file has been altered from the default values
     {
         hasSavedData = true;
     }

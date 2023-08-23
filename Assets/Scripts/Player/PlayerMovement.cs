@@ -177,7 +177,6 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
         return block;
     }
 
-
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
