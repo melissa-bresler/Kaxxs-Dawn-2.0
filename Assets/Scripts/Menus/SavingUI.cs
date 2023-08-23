@@ -8,18 +8,17 @@ public class SavingUI : MonoBehaviour
 
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject); //Prevents game object with this script from being destroyed when changing scenes
     }
 
     public void SaveText()
     {
-        StartCoroutine(SavingCanvas());
+        StartCoroutine(SavingCanvas()); //Invokes co-routine
     }
 
-    IEnumerator SavingCanvas()
+    IEnumerator SavingCanvas() //Displays savingObject for 1 second regardless of whether game time is paused or not
     {
         savingObject.SetActive(true);
-        Debug.Log("Saving text should appear now.");
 
         float startTime = Time.realtimeSinceStartup;
         float elapsedTime = 0f;

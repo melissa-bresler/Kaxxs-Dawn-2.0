@@ -6,16 +6,13 @@ public class TriggerObjActive : MonoBehaviour
 {
 
     public GameObject objToActive;
-    //public GameObject blockEnemy;
 
     private void OnTriggerEnter(Collider other)
     {
-           if(other.gameObject.tag == "Player")
+           if(other.gameObject.tag == "Player") //If collision with player
         {
-            objToActive.SetActive(true);
-            //objToActive.GetComponent<EnemyMove>().enabled = true;
-            //Destroy(blockEnemy);
-            Destroy(gameObject);
+            objToActive.SetActive(true); //Activates object i.e. enemy
+            Destroy(gameObject); //Destorys this game object
         }
     }
 }

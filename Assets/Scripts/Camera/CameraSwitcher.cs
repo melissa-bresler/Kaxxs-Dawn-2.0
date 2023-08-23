@@ -13,7 +13,7 @@ public static class CameraSwitcher
         return camera == ActiveCamera;
     }
 
-    public static void SwitchCamera(CinemachineVirtualCamera camera)
+    public static void SwitchCamera(CinemachineVirtualCamera camera) //Switches active camera
     {
         camera.Priority = 10;
         ActiveCamera = camera;
@@ -29,13 +29,11 @@ public static class CameraSwitcher
 
     public static void Register(CinemachineVirtualCamera camera)
     {
-        cameras.Add(camera);
-        //Debug.Log("Camera registered: " + camera);
+        cameras.Add(camera); //Adds camera to cameras list
     }
 
     public static void Unregister(CinemachineVirtualCamera camera)
     {
-        cameras.Remove(camera);
-        //Debug.Log("Camera unregistered: " + camera);
+        cameras.Remove(camera); //Removes camera from cameras list
     }
 }

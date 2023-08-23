@@ -16,53 +16,52 @@ public class GlitchWhenNear : MonoBehaviour
 
     void Start()
     {
-        sfx = GetComponent<AudioSource>();
+        sfx = GetComponent<AudioSource>(); //Links audio to script
     }
    
     private void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.tag == "Trigger")
+        if (collider.tag == "Trigger") //If collision with trigger tag
         {
             glitchLoop = true;
-            StartCoroutine(GlitchLoop());
+            StartCoroutine(GlitchLoop()); //Invokes co-routine
         }
     }
-    
 
     private void OnTriggerStay(Collider collider)
     {
 
-        if (collider.tag == "Player")
+        if (collider.tag == "Player") //If collision with player
         {
             if (!isGlitching)
             {
                 StartGlitch();
-                sfx.Play();
+                sfx.Play(); //Plays sound effect
             }
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player") //If collision with player
         {
             StopGlitch();
         }
-        if (collider.tag == "Trigger")
+        if (collider.tag == "Trigger") //If collision with trigger tag
         {
-            glitchLoop = false;
+            glitchLoop = false; //Stops the glitch loop
         }
     }
 
-    private void StartGlitch()
+    private void StartGlitch() //Starts the glitch effect
     {
         GlitchEffect.colorDrift = 1f;
         GlitchEffect.verticalJump = 0.2f;
         GlitchEffect.scanLineJitter = 0.4f;
     }
 
-    private void StopGlitch()
+    private void StopGlitch() //Stops the glitch effect
     {
         GlitchEffect.colorDrift = 0f;
         GlitchEffect.verticalJump = 0f;
@@ -73,11 +72,11 @@ public class GlitchWhenNear : MonoBehaviour
     {
         while (glitchLoop)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 7f));
+            yield return new WaitForSeconds(Random.Range(2f, 7f)); //Waits a random amount of time between 2-7 seconds
             isGlitching = true;
-            StartGlitch();
-            yield return new WaitForSeconds(0.5f);
-            StopGlitch();
+            StartGlitch(); //Starts glitch effect
+            yield return new WaitForSeconds(0.5f); //Waits half a seconds
+            StopGlitch(); //Stops glitch effect
             isGlitching = false;
         }
     }

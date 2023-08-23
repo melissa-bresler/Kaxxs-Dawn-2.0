@@ -21,7 +21,7 @@ public class CameraTriggerVolume : MonoBehaviour
         rb.isKinematic = true;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() //Used to be able to see trigger zone
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, boxSize);
@@ -29,9 +29,9 @@ public class CameraTriggerVolume : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player")) //If collision with player
         {
-            if (CameraSwitcher.ActiveCamera != cam) CameraSwitcher.SwitchCamera(cam);
+            if (CameraSwitcher.ActiveCamera != cam) CameraSwitcher.SwitchCamera(cam); //Switches camera based on trigger and current camera
         }
     }
 }

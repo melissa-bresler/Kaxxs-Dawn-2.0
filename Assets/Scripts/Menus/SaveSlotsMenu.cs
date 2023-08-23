@@ -9,16 +9,13 @@ public class SaveSlotsMenu : MonoBehaviour
 
     private void Awake()
     {
-        saveSlots = this.GetComponentsInChildren<SaveSlot>();
-        //ActivateMenu();
+        saveSlots = this.GetComponentsInChildren<SaveSlot>(); //Collects children of object and stores them in array
     }
 
     public void OnSaveSlotClicked(SaveSlot saveSlot)
     {
-        DataPersistenceManager.instance.ChangeSelectedProfileID(saveSlot.GetProfileID()); //This must go before LoadGame. Need to know what to load before loading it.
-        //DataPersistenceManager.instance.NewGame();
-        //DataPersistenceManager.instance.newGame = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        DataPersistenceManager.instance.ChangeSelectedProfileID(saveSlot.GetProfileID()); //Finds corresponding ID for the save slot and changes the current ID to this
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //Changes scene to next in queue i.e. Game
         
     }
 
@@ -30,8 +27,6 @@ public class SaveSlotsMenu : MonoBehaviour
         {
             GameData profileData = null; //Each save slot has a game data variable called profileData
 
-            Debug.Log("Save Slot ID: " + saveSlot.GetProfileID()); //i.e. ID: SaveSlot1
-
             if (profilesGameData.ContainsKey(saveSlot.GetProfileID())) //Save slot name must match game data key i.e. ID
             {
                 profilesGameData.TryGetValue(saveSlot.GetProfileID(), out profileData); //Retrieves information from matching ID
@@ -41,15 +36,15 @@ public class SaveSlotsMenu : MonoBehaviour
             {
                 Debug.Log("Nothing to be loaded to " + saveSlot.GetProfileID());
             }
-            if(profileData == null)
+            if(profileData == null) //If there is no data for that save slot
             {
-                if (!newGame)
+                if (!newGame) //If the user is not starting a new game
                 {
-                    saveSlot.SetInteractable(false);
+                    saveSlot.SetInteractable(false); //Disables button
                 }
                 else
                 {
-                    saveSlot.SetInteractable(true);
+                    saveSlot.SetInteractable(true); //Enables button
                 }
                 
             }

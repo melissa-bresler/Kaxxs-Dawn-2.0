@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(Animator))]
-
 public class EnemyHealth : MonoBehaviour
 {
     public EnemyMove enemyMove;
@@ -11,27 +9,25 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 5;
 
+    //TODO: Insert animator and injury animation?
     //private Animator anim;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth; //On loading, the enemy has max health
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        currentHealth -= amount; //Damegd by amount i.e. attack power
+
+        if (currentHealth <= 0) //If the health reaches zero
         {
-            //Play death animation here
-            //Add in death animation to animator
-            //anim.SetBool("isBlocking", false);
-
             Destroy(gameObject);
-            //gameObject.SetActive(false); //Causes issues
-            //enemyMove.enabled = false; //Doesn't stop enemy from moving
-            Debug.Log("Enemy is dead.");
-
+        }
+        else
+        {
+            //Injury animation here?
         }
     }
 }

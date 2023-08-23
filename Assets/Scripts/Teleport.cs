@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public void Test()
+    public void Test() //Temporary method to check that teleport can be activates with correct keypad code
     {
         Debug.Log("Keyboard unlocked teleport.");
     }

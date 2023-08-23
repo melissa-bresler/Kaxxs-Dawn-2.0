@@ -9,9 +9,9 @@ public class CameraTriggerVolume2 : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player")) //If collision with player
         {
-                CameraSwitcher.SwitchCamera(cam2);
+                CameraSwitcher.SwitchCamera(cam2); //Switches camera
 
         }
             

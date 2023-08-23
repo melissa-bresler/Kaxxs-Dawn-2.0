@@ -9,22 +9,20 @@ public class FileDataHandler
     private string dataDirPath = "";
     private string dataFileName = "";
 
-
     public FileDataHandler(string dataDirPath, string dataFileName)
     {
         this.dataDirPath = dataDirPath;
         this.dataFileName = dataFileName;
     }
 
-
     public GameData Load(string profileID)
     {
         string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
         GameData loadedData = null;
 
-        if (File.Exists(fullPath))
+        if (File.Exists(fullPath)) //Checks if the file exists
         {
-            try
+            try //Loads the data from the file
             {
                 string dataToLoad = "";
                 using (FileStream stream = new FileStream(fullPath, FileMode.Open))
@@ -37,10 +35,6 @@ public class FileDataHandler
 
 
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
-                //Debug.Log("File found and data loaded. \n FileDataHandler Script.");
-
-                //Debug.Log(Application.persistentDataPath);
-                //Debug.Log(fullPath);
             }
             catch (Exception e)
             {
@@ -54,9 +48,9 @@ public class FileDataHandler
     {
         string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
 
-        try
+        try //Saves inputed data to the specified file
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            Directory.CreateDirectory(Path.GetDirectoryName(fullPath)); //If the file does not exist it creates one, otherwise it overwrites the current data with the new data
 
             string dataToStore = JsonUtility.ToJson(data, true);
 
@@ -67,10 +61,6 @@ public class FileDataHandler
                     writer.Write(dataToStore);
                 }
             }
-
-            //Debug.Log("Data saved to file.");
-            //Debug.Log(Application.persistentDataPath);
-           // Debug.Log(fullPath);
 
         }
         catch (Exception e)
@@ -91,7 +81,7 @@ public class FileDataHandler
             string profileID = dirInfo.Name; //Makes the ID the name of the folder i.e. SaveSlot1
             Debug.Log("Directory Info Name: " + dirInfo.Name);
 
-            string fullPath = Path.Combine(dataDirPath, profileID, dataFileName); //if folder is empty i.e. has no data
+            string fullPath = Path.Combine(dataDirPath, profileID, dataFileName); //If folder is empty i.e. has no data
 
             if (!File.Exists(fullPath))
             {
@@ -99,16 +89,12 @@ public class FileDataHandler
                 continue;
             }
 
-            GameData profileData = Load(profileID); //Game data copies info from file for each slot/file?
-            profileData.SetHasSavedData(); //Game data now chaged t has saved data, but only in game, not on computer
-
-            //Debug.Log("Player position: " + profileData.playerPosition);
-            //Debug.Log("Player health: " + profileData.health);
-            //Debug.Log("Max health: " + profileData.maxHealth);
+            GameData profileData = Load(profileID); //Copies game data from file to each corresponding slot
+            profileData.SetHasSavedData(); //Game data now changed to has saved data, but only in game, not on computer
 
             if (profileData != null)
             {
-                profileDictionary.Add(profileID, profileData);
+                profileDictionary.Add(profileID, profileData); //Adds profile ID and data to dictionary
             }
             else
             {
@@ -116,7 +102,7 @@ public class FileDataHandler
             }
         }
 
-        return profileDictionary; //Return dictionary of game data with corresponding IDs as key. TODO: What is the ID? Linked to Name.
+        return profileDictionary; //Returns dictionary of game data with corresponding IDs as key.
     }
 
     public bool FindIfSavedData()
@@ -124,16 +110,16 @@ public class FileDataHandler
         int count = 0;
         IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories(); //Finds all folders within assigned path
 
-        foreach (DirectoryInfo dirInfo in dirInfos)
+        foreach (DirectoryInfo dirInfo in dirInfos) //Counts the number of directories found
         {
             count++;
         }
 
-        if (count > 0)
+        if (count > 0) //If directories found
         {
             return true;
         }
-        else
+        else //If no directories found
         {
             return false;
         }

@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDataPersistence
 {
-    //public PlayerMovement playerMovement;
     private PlayerMovement playerMovemenetScript = null;
     public GameObject gameOverUI;
 
@@ -18,52 +17,50 @@ public class PlayerHealth : MonoBehaviour, IDataPersistence
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>(); //Links animator
         gameOverUI.SetActive(false); //Makes sure Game Over Screen isn't visible at start of game
-        playerMovemenetScript = GetComponentInParent<PlayerMovement>();
+        playerMovemenetScript = GetComponentInParent<PlayerMovement>(); //Finds correct script from parent object
         playerMovemenetScript.Enabled = true; //Enables player movement when initiating this script
 
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount) //When player is injured
     {
-        health -= amount;
-        if (health <= 0)
+        health -= amount; //Health decrements by amount i.e. enemy's attack power
+
+        if (health <= 0) //If the player is dead
         {
-            playerMovemenetScript.Enabled = false; //Disables player movement after death
-            anim.SetTrigger("isDead");
-            Debug.Log("Player is dead. They can no longer move.");
-            Invoke("EndOfGame", 5f);
+            playerMovemenetScript.Enabled = false; //Disables player movement
+            anim.SetTrigger("isDead"); //Plays death animation
+            Invoke("EndOfGame", 5f); //Waits 5 seconds before activating the method
         }
         else
         {
-            anim.SetTrigger("isInjured");
+            anim.SetTrigger("isInjured"); //Plays injured animation so user has a visual cue that the player has been injured
         }
     }
 
-    public void HealHealth(int amount)
+    public void HealHealth(int amount) //Activated through using a health potion
     {
-        if (health < maxHealth)
+        if (health < maxHealth) //If the player doesn't have full health
         {
-            health += amount;
-            Debug.Log("Health increased by " + amount);
+            health += amount; //Health increased by amount i.e. potency of potion
         }
     }
 
     public void EndOfGame()
     {
-        Time.timeScale = 0f;
-        gameOverUI.SetActive(true);
+        Time.timeScale = 0f; //Stops time so that game doesn't continue after the player dies
+        gameOverUI.SetActive(true); //Displays the Game Over screen
     }
 
-    public void LoadData(GameData data)
+    public void LoadData(GameData data) //Copies data from saved file on pc to game
     {
         this.maxHealth = data.maxHealth;
         this.health = data.health;
-        Debug.Log("Loading player Max health data: " + this.maxHealth + "\n Loading player Health data: " + this.health);
     }
 
-    public void SaveData(GameData data) //ref
+    public void SaveData(GameData data) //Copies data from game onto saved file on pc
     {
         data.maxHealth = this.maxHealth;
         data.health = this.health;

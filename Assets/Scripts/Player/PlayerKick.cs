@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerKick : MonoBehaviour
 {
-    //This should only happen once
     private void OnTriggerEnter(Collider collision)
     {
-        //Debug.Log("Player is kicking the enemy.");
-        if (collision.gameObject.tag == "WeakPoint")
+        if (collision.gameObject.tag == "WeakPoint") //If collision with enemy's weak point
         {
-            collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(2);
-            Debug.Log("Weak point hit.");
+            collision.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(2); //Damages enemy
+            Debug.Log("Weak point hit."); //TODO: Remove later
         }
     }
 }

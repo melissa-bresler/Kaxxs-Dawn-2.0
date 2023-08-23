@@ -16,28 +16,27 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
 
-        if (!DataPersistenceManager.instance.HasGameData())
+        if (!DataPersistenceManager.instance.HasGameData()) //Checks whether there is any previously saved games
         {
-            loadGameButton.interactable = false;
+            loadGameButton.interactable = false; //If there are not, then the load game button is not interactable
         }
     }
 
     public void NewGame()
     {
         saveSlotsMenu.ActivateMenu(true);
-        DataPersistenceManager.instance.newGame = true;
+        DataPersistenceManager.instance.newGame = true; //The user wants to load a new game
     }
     
     public void LoadGame()
     {
         saveSlotsMenu.ActivateMenu(false);
-        DataPersistenceManager.instance.newGame = false;
+        DataPersistenceManager.instance.newGame = false; //The user wants to load previously saved game
     }
-    
     
     public void QuitGame()
     {
         Debug.Log("Game has been QUIT.");
-        Application.Quit();
+        Application.Quit(); //Quits the application
     }
 }

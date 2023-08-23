@@ -5,10 +5,10 @@ using UnityEngine;
 public class Item : MonoBehaviour//, IDataPersistence
 {
     [SerializeField] private string id;
-    [ContextMenu("Generate guid for id")] //Allows you to activate method in the inspector in Unity
+    [ContextMenu("Generate guid for id")] //Allows activation of method in Unity Inspector
     private void GenerateGuid()
     {
-        id = System.Guid.NewGuid().ToString();
+        id = System.Guid.NewGuid().ToString(); //Generates a unique id
     }
 
     private bool collected = false;
@@ -16,7 +16,7 @@ public class Item : MonoBehaviour//, IDataPersistence
 
     [SerializeField] public string itemName;
     [SerializeField] public int quantity;
-    [SerializeField] public Sprite sprite; //To keep track of the image for the object
+    [SerializeField] public Sprite sprite;
     [TextArea][SerializeField] public string itemDescription;
 
     public ItemSO itemData;
@@ -25,28 +25,29 @@ public class Item : MonoBehaviour//, IDataPersistence
 
     void Start()
     {
-        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>(); //Locates correct object and assigns it to variable
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player") //If the player collides with the object
         {
-            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, itemData);
-            if (leftOverItems <= 0)
+            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, itemData); //Adds item to inventory and checks how much is left over after collection
+
+            if (leftOverItems <= 0) //If there are no more items of this type to collect
             {
                 collected = true;
-                Destroy(gameObject);
+                Destroy(gameObject); //Destroys the object inside the game
             }
             else
             {
-                quantity = leftOverItems;
+                quantity = leftOverItems; //Changes the value of the item to what could not be collected
             }
 
-            //Debug.Log("Player has collided with an item.");
             Debug.Log("ITEM DATA: \n itemName: " + itemName + "\n quantity: " + quantity + "\n sprite: " + sprite + "\n itemDescription: " + itemDescription + "\n itemData: " + itemData);
         }
     }
+    //TODO: Clean up later!!!
     /*
     public void LoadData(GameData data)
     {

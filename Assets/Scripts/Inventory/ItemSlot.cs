@@ -8,16 +8,13 @@ using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
-
     //Item Data
     public string itemName;
     public int quantity;
     public Sprite itemSprite;
     public bool isFull;
     public string itemDescription;
-    //public Sprite emptySprite; //Uncomment once you've added an empty sprite
     [SerializeField] public int maxNumberOfItems;
-
 
     public ItemSO itemData;
 
@@ -30,8 +27,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public TMP_Text itemDescriptionNameText;
     public TMP_Text itemDescriptionText;
 
-
-
     public GameObject selectedShader;
     public bool thisItemSelected;
 
@@ -42,11 +37,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-
     public int AddItem(string itemName, int quantity, UnityEngine.Sprite itemSprite, string itemDescription, ItemSO itemData)
     {
-        //Debug.Log("Item added to inventory");
-
         //Check if slot is already full
         if (isFull)
         {
@@ -60,7 +52,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         this.itemSprite = itemSprite;
         itemImage.sprite = itemSprite;
         itemImage.enabled = true;
-        //Debug.Log("Image enabled");
 
         //Update description
         this.itemDescription = itemDescription;
@@ -73,7 +64,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             quantityText.text = maxNumberOfItems.ToString();
             quantityText.enabled = true;
-            //Debug.Log("Text enabled");
             isFull = true;
 
             //Return the leftovers
@@ -91,10 +81,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     }
 
-    
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData) //Checking which mouse button was clicked
     {
-        if(eventData.button == PointerEventData.InputButton.Left) //Is this using the old imput system?
+        if(eventData.button == PointerEventData.InputButton.Left)
         {
             OnLeftClick();
         }
@@ -108,25 +97,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (this.quantity != 0)
         {
+            /*
             GameObject itemToDrop = new GameObject(itemName);
             Item newItem = itemToDrop.AddComponent<Item>();
             newItem.quantity = 1;
             newItem.itemName = itemName;
             newItem.sprite = itemSprite;
             newItem.itemDescription = itemDescription;
-
+            */
 
             //Drop the item
             Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-            Vector3 offset = new Vector3(1f, 0, 0); //Will always spawn to the right
-            Quaternion playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation; //this doesn't seem to be doing anything
+            Vector3 offset = new Vector3(1f, 0, 0);
+            Quaternion playerRotation = GameObject.FindGameObjectWithTag("Player").transform.rotation;
             Instantiate(itemData.itemPrefab, playerPosition + offset, playerRotation);
 
-
-            //Set location
-            //itemToDrop.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0.5f, 0, 0);
-
-            //Subtract the item
+            //Subtract the item from the inventory
             this.quantity -= 1;
             quantityText.text = this.quantity.ToString();
             if (this.quantity <= 0)
@@ -136,19 +122,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnLeftClick()
+    private void OnLeftClick()
     {
         if (thisItemSelected)
         {
-            if (this.quantity != 0) //Stops player from using an item they've already dropped/used
+            if (this.quantity != 0) //Checks if there is an item in the slot
             {
-                bool usable = inventoryManager.UseItem(itemName);
-                if (usable)
+                bool usable = inventoryManager.UseItem(itemName); //Checks if the item is usable
+
+                if (usable) //Uses item
                 {
-                    //Debug.Log("Item used.");
+                    //Decrements the quantity
                     this.quantity -= 1;
                     quantityText.text = this.quantity.ToString();
-                    if (this.quantity <= 0)
+
+                    if (this.quantity <= 0) //If there are no more items of the same type in the slot
                     {
                         EmptySlot();
                     }
@@ -156,7 +144,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             }
             
         }
-        else
+        else //Selects clicked slot. Displays info in description section of inventory
         {
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
@@ -164,17 +152,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             itemDescriptionNameText.text = itemName;
             itemDescriptionText.text = itemDescription;
             itemDescriptionImage.sprite = itemSprite;
-
-            //Uncomment once you've added an empty sprite
-            /*if(itemDescriptionImage.sprite == null)
-            {
-                itemDescriptionImage.sprite = emptySprite;
-            }
-            */
         }
     }
 
-    private void EmptySlot()
+    private void EmptySlot() //Resets slot data
     {
         quantityText.enabled = false;
         itemImage.sprite = null;

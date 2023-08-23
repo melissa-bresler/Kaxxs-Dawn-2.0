@@ -9,7 +9,6 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        //Debug.Log("Volume: " + volume);
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Volume", volume); //Adjusts the volume variable in the audio mixer
     }
 }

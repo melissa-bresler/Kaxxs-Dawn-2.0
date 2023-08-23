@@ -16,28 +16,26 @@ public class ItemSO : ScriptableObject
 
     public bool UseItem()
     {
-        if(statToChange == StatToChange.health)
+        if(statToChange == StatToChange.health) //If the item has health as it's affected stat
         {
-            PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-            if(playerHealth.health == playerHealth.maxHealth)
+            PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>(); //Finds PlayerHealth script
+
+            if(playerHealth.health == playerHealth.maxHealth) //If the player has full health
             {
-                Debug.Log("Player already has full health. Cannot use item.");
-                return false;
+                return false; //Item is not used
             }
             else
             {
-                playerHealth.HealHealth(amountToChangeStat);
-                return true;
+                playerHealth.HealHealth(amountToChangeStat); //Activates HealHealth method in PlayerHealth Scipt with amount to change as the 'potency' of the item
+                return true; //Item is used
             }
-
-            //Debug.Log("SO is trying to use the item and increase the Player's health.");
         }
-        return false;
+        return false; //If item does not affect health, it cannot be used
     }
 
 
 
-    public enum StatToChange
+    public enum StatToChange //The stats that an object can change
     {
         none, health
     };

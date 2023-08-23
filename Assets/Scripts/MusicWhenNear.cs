@@ -8,22 +8,22 @@ public class MusicWhenNear : MonoBehaviour
 
     void Start()
     {
-        music = GetComponent<AudioSource>();
+        music = GetComponent<AudioSource>(); //Links music to script
     }
 
     private void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.tag == "Player")
+        if (collider.tag == "Player") //If collision with player
         {
-            music.Play();
+            music.Play(); //Plays music
         }
     }
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player") //If collision with player
         {
-            music.Stop();
+            music.Stop(); //Stops music
         }
     }
 }

@@ -8,30 +8,26 @@ public class EnemyDamage : MonoBehaviour
     private bool canDamage = true;
     [SerializeField] private int damage = 1;
 
-    //public PlayerMovement playerMovement;
-
     private void OnTriggerEnter(Collider collision)
     {
-        bool attacking = enemyMove.GetComponent<EnemyMove>().GetIsAttacking();
+        bool attacking = enemyMove.GetComponent<EnemyMove>().GetIsAttacking(); //Finds the state of the enemy i.e. if the attacking animation is playing
 
         if (attacking)
         {
 
             if (collision.gameObject.tag == "Player")
             {
-                //Debug.Log("STEP 3: " + collision.gameObject.GetComponent<PlayerMovement>().GetIsBlocking());
 
                 if (!collision.gameObject.GetComponent<PlayerMovement>().GetIsBlocking())
                 {
-                    if (canDamage)
+                    if (canDamage) //When the enemy successfully hits the player
                     {
-                        StartCoroutine(DamageCooldown(collision.gameObject));
+                        StartCoroutine(DamageCooldown(collision.gameObject)); //Invokes co-routine
                     }
-                    else
+                    else //No damage can be inflicted when the player is blocking
                     {
                         Debug.Log("Can't damage yet. Cooldown active.");
                     }
-                    //collision.gameObject.GetComponentInParent<PlayerHealth>().TakeDamage(damage);
                 }
                 else
                 {
@@ -43,11 +39,10 @@ public class EnemyDamage : MonoBehaviour
 
     private IEnumerator DamageCooldown(GameObject player)
     {
-        player.GetComponentInParent<PlayerHealth>().TakeDamage(damage);
-        Debug.Log("Player takes damage.");
-        canDamage = false;
-        yield return new WaitForSeconds(2f);
-        canDamage = true;
+        player.GetComponentInParent<PlayerHealth>().TakeDamage(damage); //Damages the player
+        canDamage = false; //Disables the enemy's ability to damage the player
+        yield return new WaitForSeconds(2f); //Waits 2 seconds before continuing
+        canDamage = true; //Enables the enemy's ability to damage the player
     }
 
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//[RequireComponent(typeof(EnemyDamage))]
-
 public class EnemyMove : MonoBehaviour, IControllable
 {
     private Transform player;
@@ -19,9 +17,7 @@ public class EnemyMove : MonoBehaviour, IControllable
 
     private bool isAttacking;
 
-    //public PlayerHealth playerHealth;
-
-    private void Start()
+    private void Start() //Finds needed components for script to function
     {
         player = GameObject.FindWithTag("Player").transform;
 
@@ -32,40 +28,37 @@ public class EnemyMove : MonoBehaviour, IControllable
         anim = GetComponent<Animator>();
     }
 
-    //Call every frame
     public void update()
     {
         MoveEnemy();
-        //enemyDamage.DamageUpdate();
     }
 
     void MoveEnemy()
     {
         //Look at the player
-        transform.LookAt(player); //Too fast. Needs a delay so player can try and move around the enemy.
+        transform.LookAt(player);
 
         agent.SetDestination(player.transform.position);
 
-        if (Vector3.Distance(transform.position, player.position) < enemyDistance)
+        if (Vector3.Distance(transform.position, player.position) < enemyDistance) //If the enemy is within distance of player
         {
+            //Enemy stops walking
             anim.SetInteger("Walk", 0);
-            //Debug.Log("Enemy attack.");
             gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
             enemyDistance = 2.5f;
+
+            //Enemy attacks player
             if (!isAttacking) {
                 isAttacking = true;
                 Invoke("Attack", 2.1f);
             }
         }
-        else
+        else //Walk towards player
         {
             anim.SetInteger("Walk", 1);
             enemyDistance = 2.0f;
         }
-
-        //Debug.Log("Distance: " + Vector3.Distance(transform.position, player.position));
     }
-
 
     void Attack()
     {

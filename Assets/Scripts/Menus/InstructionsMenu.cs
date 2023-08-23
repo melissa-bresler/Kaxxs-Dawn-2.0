@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InstructionsMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool GameIsPaused = false; //static?
 
     public GameObject instructionsMenuUI;
 
@@ -21,17 +21,17 @@ public class InstructionsMenu : MonoBehaviour
         }
     }
 
-    public void Resume()
+    public void Resume() 
     {
-        instructionsMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        instructionsMenuUI.SetActive(false); //Disables instructions UI
+        Time.timeScale = 1f; //Resumes time
         GameIsPaused = false;
     }
 
     void Pause()
     {
-        instructionsMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        instructionsMenuUI.SetActive(true); //Enables instructions UI
+        Time.timeScale = 0f; //Stops time
         GameIsPaused = true;
 
     }

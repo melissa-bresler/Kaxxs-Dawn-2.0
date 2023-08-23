@@ -17,26 +17,21 @@ public class SaveSlot : MonoBehaviour
         thisButton = this.GetComponent<Button>();
     }
 
-
     public void SetData(GameData data)
     {
+        //Shows either 'Progress' or 'Empty' based on whether a save slot has saved game data
         if (data.hasSavedData == false)
         {
-            
-            //thisButton.interactable = false; //Should disable button if there is no saved data attached to it
-            //Debug.Log("There is NO saved data.");
             noDataContent.SetActive(true);
             hasDataContent.SetActive(false);
         }
         else
         {
-            //Debug.Log("There is saved data.");
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
         }
 
     }
-
 
     public string GetProfileID()
     {
@@ -45,6 +40,7 @@ public class SaveSlot : MonoBehaviour
 
     public void SetInteractable(bool interactable)
     {
+        //Enables/Disables button based on input
         if (interactable)
         {
             thisButton.interactable = true;

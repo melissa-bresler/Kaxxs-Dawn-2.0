@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public static bool GameIsPaused = false; //TODO: Why is this static????
 
     public GameObject pauseMenuUI;
     private DataPersistenceManager dataPersistanceManager;
 
     private void Awake()
     {
-        dataPersistanceManager = GetComponent<DataPersistenceManager>();
+        dataPersistanceManager = GetComponent<DataPersistenceManager>(); //Finds correcsponding object
     }
 
     private void OnPause()
@@ -28,47 +28,44 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void Resume()
+    void Resume()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        pauseMenuUI.SetActive(false); //Disables the object
+        Time.timeScale = 1f; //Resumes time
         GameIsPaused = false;
     }
 
     void Pause()
     {
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        pauseMenuUI.SetActive(true); //Enables the object
+        Time.timeScale = 0f; //Stops time
         GameIsPaused = true;
 
     }
 
     public void LoadMenu()
     {
-        //Debug.Log("Loading Menu...");
-        StartCoroutine(PauseAndContinue());
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(PauseAndContinue()); //Invokes co-routine
+        Time.timeScale = 1f; //Resumes time
+        SceneManager.LoadScene("MainMenu"); //Changes scene to MainMenu scene
     }
 
     public void QuitGame()
     {
-        StartCoroutine(PauseAndContinue());
+        StartCoroutine(PauseAndContinue()); //Invokes co-routine
         Debug.Log("Quiting Game...");
-        Application.Quit();
+        Application.Quit(); //Quits the application
     }
 
     public void SaveGame()
     {
-        Debug.Log("Saving game from pause menu script.");
-        DataPersistenceManager.instance.SaveGame();
+        DataPersistenceManager.instance.SaveGame(); //Invokes the SaveGame method from the DataPersistanceManager script
     }
-
 
     IEnumerator PauseAndContinue()
     {
         SaveGame();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3f); //Waits 3 seconds after SaveGame has been invokes before moving on to other code
     }
 
 }

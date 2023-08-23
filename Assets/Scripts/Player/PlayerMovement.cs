@@ -31,13 +31,13 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
     void Awake()
     {
-        _characterController = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
+        _characterController = GetComponent<CharacterController>(); //TODO: What is the purpose of this?
+        anim = GetComponent<Animator>(); //Links animator to character
 
-        controls = new PlayerInput();
-        mainCameraTransform = Camera.main.transform;
+        controls = new PlayerInput(); //Links controls to input from user i.e. which buttons get pressed (arrows keys/ASWD)
+        mainCameraTransform = Camera.main.transform; //Used for finding the direction the camera is facing.
 
-        healthDisplay = GetComponent<HealthDisplay>();
+        healthDisplay = GetComponent<HealthDisplay>(); //TODO: What is the purpose of this?
 
     }
 
@@ -54,15 +54,14 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
     public void update()
     {
         MovePlayer();
-        healthDisplay.update();
+        healthDisplay.update(); //TODO: Figure out what this does
 
     }
 
     void MovePlayer()
     {
-        if (!Enabled)
+        if (!Enabled) //By disabling this parameter, player movement can be disabled as the rest of this method will not run.
         {
-            // Player movement is disabled
             _characterController.SimpleMove(Vector3.zero);
             return;
         }
@@ -71,16 +70,16 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
         if (block)
         {
-            movement = Vector3.zero;
-            anim.SetBool("isBlocking", true);
+            movement = Vector3.zero; //Player is unable to move while blocking.
+            anim.SetBool("isBlocking", true); //Play blocking animation.
         }
 
         if (!block)
         {
-            anim.SetBool("isBlocking", false);
+            anim.SetBool("isBlocking", false); //Disable blocking animation.
 
 
-
+            //This ensures that the player controls adjust according which way the camera is facing so that the controls always match what the user is able to see.
             Vector3 cameraForward = mainCameraTransform.forward;
             cameraForward.y = 0f;
             cameraForward.Normalize();
@@ -91,17 +90,7 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
             movement = (cameraForward * _playerMovementInput.y + cameraRight * _playerMovementInput.x) * _speed;
 
-
-            //Debug.Log("Y input: " + movementInput.y + ". X input: " + movementInput.x + "."); //Inputs are being received
-            //Debug.Log("Movement: " + movement);
-
-
-
-
-
-
-            //movement = new Vector3(_playerMovementInput.x, 0.0f, _playerMovementInput.y);
-            _characterController.SimpleMove(movement * _speed);
+            _characterController.SimpleMove(movement * _speed); //Moves player is correct direcvtion with specified speed.
 
             //Starts walking animation and rotates player to direction of movement.
             if (movement != Vector3.zero)
@@ -112,23 +101,22 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
                 anim.SetBool("isWalking", true);
 
+                //These enabled/disable the running animation and adjust the speed.
                 if (!run)
                 {
-                    //Debug.Log("Character is WALKING.");
                     anim.SetBool("isRunning", false);
                     _characterController.SimpleMove(movement * _speed);
                 }
 
                 if (run)
                 {
-                    //Debug.Log("Character is RUNNING.");
                     anim.SetBool("isRunning", true);
                     _characterController.SimpleMove(movement * _runSpeed);
                 }
 
             }
 
-            //Stops walking animation
+            //Stops walking and running animation when player stops moving
             if (movement == Vector3.zero)
             {
                 anim.SetBool("isRunning", false);
@@ -137,18 +125,14 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
         }
 
-
-
-
     }
 
     void OnMove(InputValue iv)
     {
-        //Debug.Log("Movement pressed.");
-        _playerMovementInput = iv.Get<Vector2>();
+        _playerMovementInput = iv.Get<Vector2>(); //Sets the value of the keys pressed to _playerMovementInput.
     }
 
-    void OnRun()
+    void OnRun() //This activates when the appropriate key is pressed and released.
     {
         run = !run;
     }
@@ -163,15 +147,15 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
 
         if (!block)
         {
-            //_characterController.SimpleMove(Vector3.zero * 0); //This doesn't work
             anim.SetTrigger("isJumping");
         }
+        //TODO: Maybe do the bellow by adding an extra methos with a coroutine delaying mvoement.
         //Character should stop moving when jumping
         //Set some sort of trigger within the code?
 
     }
 
-    void OnBlock()
+    void OnBlock() //This activates when the appropriate key is pressed and released.
     {
         block = !block;
     }
@@ -197,6 +181,8 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
         return block;
     }
 
+
+    //TODO: Clean this up later
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
@@ -205,10 +191,10 @@ public class PlayerMovement : MonoBehaviour, IControllable, IDataPersistence
         //this.transform.rotation = Quaternion.Euler(data.playerRotation.z, data.playerRotation.x, data.playerRotation.y);
     }
 
-    public void SaveData(GameData data) //ref
+    public void SaveData(GameData data)
     {
         data.playerPosition = this.transform.position;
-        Debug.Log("Saving player positon data: " + data.playerPosition); //This appears on the console.
+        Debug.Log("Saving player positon data: " + data.playerPosition);
         //data.playerRotation = this.transform.rotation.eulerAngles;
 
     }
