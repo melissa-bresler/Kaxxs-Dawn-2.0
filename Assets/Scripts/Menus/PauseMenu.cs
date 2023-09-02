@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        dataPersistanceManager = GetComponent<DataPersistenceManager>(); //Finds correcsponding object
+        dataPersistanceManager = GetComponent<DataPersistenceManager>(); //Finds corresponding object
     }
 
     private void OnPause()

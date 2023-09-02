@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour//, IDataPersistence
+public class Item : MonoBehaviour
 {
     [SerializeField] private string id;
     [ContextMenu("Generate guid for id")] //Allows activation of method in Unity Inspector

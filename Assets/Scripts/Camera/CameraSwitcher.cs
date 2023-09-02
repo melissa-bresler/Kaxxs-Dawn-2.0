@@ -8,7 +8,7 @@ public static class CameraSwitcher
     static List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
     public static CinemachineVirtualCamera ActiveCamera = null;
 
-    public static bool IsActiveCamera(CinemachineVirtualCamera camera)
+    public static bool IsActiveCamera(CinemachineVirtualCamera camera) //Compares camera with ActiveCamera
     {
         return camera == ActiveCamera;
     }

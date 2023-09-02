@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
 
-        if (!DataPersistenceManager.instance.HasGameData()) //Checks whether there is any previously saved games
+        if (!DataPersistenceManager.instance.HasGameData()) //Checks whether there are any previously saved games
         {
             loadGameButton.interactable = false; //If there are not, then the load game button is not interactable
         }

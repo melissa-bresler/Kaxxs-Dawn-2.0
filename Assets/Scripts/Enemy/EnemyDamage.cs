@@ -22,7 +22,7 @@ public class EnemyDamage : MonoBehaviour
                 {
                     if (canDamage) //When the enemy successfully hits the player
                     {
-                        StartCoroutine(DamageCooldown(collision.gameObject)); //Invokes co-routine
+                        StartCoroutine(DamageCooldown(collision.gameObject)); //Invokes coroutine
                     }
                     else //No damage can be inflicted when the player is blocking
                     {
